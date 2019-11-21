@@ -11,7 +11,7 @@ exports.seed = function(knex) {
           last_name: 'Usman',
           email: 'richie@gmail.com',
           userType: 'stylist',
-          bio: 'Wassup? I am a hairstylist in SD.',
+          bio: 'Wassup? I am a hairstylist in Savannah.',
           profile_img: 'https://images.unsplash.com/photo-1556755134-a67aafdbd686?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
           salon_id: 1,
         },

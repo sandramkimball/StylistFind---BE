@@ -15,7 +15,7 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 
 server.get('/', (req, res) => {
-  res.send("Let's go see the world.");
+  res.send("Let\'s find you a stylist.");
 });
 
 module.exports = server;
