@@ -13,6 +13,7 @@ server.use(cors());
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
+server.use('/api/stylists', stylistsRouter);
 
 server.get('/', (req, res) => {
   res.send("Let\'s find you a stylist.");

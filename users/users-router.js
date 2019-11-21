@@ -35,52 +35,50 @@ router.get('/:id', restricted, (req, res) => {
   });
 });
 
-router.get('/:id/posts', restricted, (req, res) => {
+router.get('/:id/reviews', restricted, (req, res) => {
   id = req.params.id;
   db
-  .select('posts.*' )
-  .from('posts')
-  .join('users', 'posts.user_id', '=', 'users.id')
-  .where('posts.user_id', '=', `${id}`)
+  .select('reviews.*' )
+  .from('reviews')
+  .join('users', 'reviews.user_id', '=', 'reviews.id')
+  .where('reviews.user_id', '=', `${id}`)
   .then(posts => {
     res.status(200).json(posts)
   })
     .catch(err=> {
       console.log(err);
-      res.status(500).json({error: 'Error retrieving posts.'})
+      res.status(500).json({error: 'Error retrieving reviews.'})
     });
 });
 
-router.get('/:id/posts/:id', restricted, (req, res) => {
+router.get('/:id/reviews/:id', restricted, (req, res) => {
   id=req.params.id;
-  // postId=req.params.id;
   db
-  .select('posts.*' )
+  .select('reviews.*' )
   .from('users')
-  .join('posts', 'users.id', '=', 'posts.user_id')
-  // .where('posts.user_id', '=', `${id}`)
-  .where('posts.id', '=', `${id}`)
-  .then(posts => {
-    res.status(200).json(posts)
+  .join('reviews', 'users.id', '=', 'reviews.user_id')
+  .where('reviews.id', '=', `${id}`)
+  .then(review => {
+    res.status(200).json(review)
   })
     .catch(err=> {
       console.log('Error: ', err)
-      res.status(500).json({error: 'Unable to find post.'})
+      res.status(500).json({error: 'Unable to find review.'})
     });
 });
 
 
 
 //POST
-router.post('/:id/posts', restricted, (req, res) => {
-  const postData = req.body;
+router.post('/:id/reviews', restricted, (req, res) => {
+  const newReview = req.body;
 
-  db('posts').insert(postData)
+  db('reviews').insert(newReview)
   .then(ids => {
-    res.status(201).json({ created: ids[0] });
+    res.status(201).json({ message: 'Your review was added.' });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to add new posts.' });
+    res.status(500).json({ message: 'Failed to add new review.' });
   });
 });
 
@@ -99,16 +97,16 @@ router.put('/:id', restricted, (req, res) => {
   });
 });
 
-router.put('/:id/posts/:id', restricted, (req, res) => {
-  const postData = req.body;
+router.put('/:id/reviews/:id', restricted, (req, res) => {
+  const editedReview = req.body;
   const id = req.params.id;
 
-  db('posts').where({id}).update(postData)
+  db('reviews').where({id}).update(editedReview)
   .then(ids => {
-    res.status(201).json({ created: ids[0] });
+    res.status(201).json({ message: 'Your review was updated.' });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to edit post.' });
+    res.status(500).json({ message: 'Failed to edit review.' });
   });
 });
 
@@ -126,15 +124,15 @@ router.delete('/:id', restricted, (req, res) => {
   });
 });
 
-router.delete('/:id/posts/:id', restricted, (req, res) => {
+router.delete('/:id/reviews/:id', restricted, (req, res) => {
   const id = req.params.id;
 
-  db('posts').where({id}).delete()
+  db('reviews').where({id}).delete()
   .then(ids => {
-    res.status(201).json({ created: ids[0] });
+    res.status(201).json({ message: 'This review has been deleted.' });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to delete post.' });
+    res.status(500).json({ message: 'Failed to delete review.' });
   });
 });
 

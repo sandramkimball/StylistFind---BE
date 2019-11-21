@@ -17,28 +17,39 @@ This is a side project of mine that was inspired by a previous project. The orig
 
 GET: <br>
     /api/users 
-    returns all `users`.
-
     /api/users/:id
-    returns specific `user`.
+    /api/users/:id/reviews
+    /api/users/:id/reviews/:id
+
+    /api/stylists
+    /api/stylists/:id
+    /api/stylists/:id/posts
+    /api/stylists/:id/posts/:id
 
 
 POST:<br>
     /auth/register
-    Creates new `user`.
-
     /auth/login
-    Login existing `user`.
+
+    /api/users/reviews
+
+    /api/stylists/posts
 
 
 PUT:<br>
-    /:id
-    Edits a specific `user`'s information.
+    /api/users/:id
+    /api/users/:id/reviews/:id
+    
+    /api/stylsits/:id
+    /api/stylsits/:id/posts/:id
 
 
 DELETE:<br>
-    /:id
-    Deletes a specific `user`.
+    /api/users/:id
+    /api/users/:id/reviews/:id
+
+    /api/stylists/:id
+    /api/stylists/:id/posts/:id
 
 
 

@@ -31,7 +31,7 @@ router.get('/:id', restricted, (req, res) => {
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ message: 'Failed to get user by id' });
+    res.status(500).json({ message: 'Failed to get stylist by id' });
   });
 });
 
@@ -51,6 +51,21 @@ router.get('/:id/posts', restricted, (req, res) => {
     });
 });
 
+router.get('/:id/posts/:id', restricted, (req, res) => {
+  id = req.params.id;
+  db
+  .select('posts.*' )
+  .from('stylists')
+  .join('posts', 'stylist.id', '=', 'posts.stylists_id')
+  .where('posts.user_id', '=', `${id}`)
+  .then(posts => {
+    res.status(200).json(posts)
+  })
+    .catch(err=> {
+      console.log(err);
+      res.status(500).json({error: 'Error retrieving posts.'})
+    });
+});
 
 
 //POST
@@ -81,6 +96,18 @@ router.put('/:id', restricted, (req, res) => {
   });
 });
 
+router.put('/:id/posts/:id', restricted, (req, res) => {
+  const editedPost = req.body;
+  const id = req.params.id;
+
+  db('posts').where({id}).update(editedPost)
+  .then(ids => {
+    res.status(201).json({ message: 'Your post was updated.' });
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to edit post.' });
+  });
+});
 
 
 //DELETE
