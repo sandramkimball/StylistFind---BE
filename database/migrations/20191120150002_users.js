@@ -29,6 +29,7 @@ exports.up = function(knex) {
         tbl.string('city').notNullable();
         tbl.string('zipcode').notNullable();
         tbl.string('state').notNullable();
+        tbl.string('profile_img');
     })
 
     .createTable('stylists', stylists=> {

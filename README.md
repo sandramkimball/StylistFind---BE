@@ -75,11 +75,9 @@ DELETE:<br>
 |-----------|-------|-----------|---------|---------|
 | id        | inc   | yes       | primary |         |
 | username  | str   | yes       |         | Yes     |
-| first_name| str   | yes       |         |         |
-| last_name | str   | yes       |         |         |
+| name      | str   | yes       |         |         |
 | password  | str   | yes       |         |         |
 | email     | str   | yes       |         | Yes     |
-| city_id   | str   |           |         |         |
 | usertype  | *     | yes       |         |         |
 | profile_img| str  |           |         |         |
 
@@ -87,16 +85,20 @@ DELETE:<br>
 | Column    | Type  | Required  | Key     |
 |-----------|-------|-----------|---------|
 | id        | int   | yes       | primary | 
-| name      | str   | yes       |         | 
-| address   | str   | yes       |         | 
-| city_id   | str   | yes       | foreign |
+| salon     | str   | yes       |         | 
+| street_address | str   | yes       |         | 
+| city      | str   | yes       | foreign |
+| zipcode   | str   | yes       | foreign |
+| state     | str   | yes       | foreign |
 | profile_img| str  |           |         |
 
 ### Cities
 | Column    | Type  | Required  | Key     |
 |-----------|-------|-----------|---------|
 | id        | int   | yes       | primary |
-| name      | str   | yes       |         |
+| city      | str   | yes       |         |
+| zipcode   | str   | yes       | foreign |
+| state     | str   | yes       | foreign |
 | country_id| int   | yes       | foreign |
 
 country_id REFERENCES id IN TABLE country </br>
@@ -113,15 +115,15 @@ country_id REFERENCES id IN TABLE country </br>
 | id        | inc   | yes       | primary | 
 | date      | tmstmp|           |         | 
 | comment   | text  |           |         | 
+| image     | str   |           |         |
 | stylist_id| str   |           | foreign |
-| profile_img| str  |           |         |
 
-### User Comments
+### User Reviews
 | Column    | Type  | Required  | Key     |
 |-----------|-------|-----------|---------|
 | id        | inc   | yes       | primary | 
 | date      | tmstmp|           |         | 
-| comment   | text  |           |         | 
+| review    | text  |           |         | 
 | image     | str   |           |         |
 | user_id   | str   | yes       | foreign |
 | stylist_id| str   |           | foreign |
