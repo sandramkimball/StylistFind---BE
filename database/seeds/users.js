@@ -8,7 +8,7 @@ exports.seed = function(knex) {
           name: 'Sandy',
           email: 'sandy@gmail.com',
           usertype: 'user',
-          profile_img: 'https://images.unsplash.com/photo-1509704215857-7ac19c9842b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          profile_img: 'https://images.unsplash.com/photo-1509704215857-7ac19c9842b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
         },
         {
           password: 'Maggie',

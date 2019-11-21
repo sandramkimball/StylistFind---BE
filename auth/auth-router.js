@@ -26,6 +26,27 @@ router.post('/register', (req, res) => {
     }
   });
 
+  // router.post('/stylist/register', (req, res) => {
+  //   let user = req.body;
+  //   const validateResults = validateUser(user);
+  
+  //   if(validateResults.isSuccessful === true){
+  //     const hash = bcrypt.hashSync(user.password, 8); 
+  //     user.password = hash;
+  
+  //     Users.add(user)
+  //       .then(saved => {
+  //         req.body.username = saved.username;
+  //         res.status(201).json(saved);
+  //       })
+  //       .catch(error => {
+  //         res.status(500).json(error);
+  //     });
+  //   } else {
+  //     res.status(400).json({message:'Error:', err: validateResults.errors})
+  //   }
+  // });
+
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
 

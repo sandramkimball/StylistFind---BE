@@ -18,7 +18,7 @@ exports.seed = function(knex) {
         {
           username: 'Kat',
           password: 'Kat',
-          first: 'Kat',
+          first_name: 'Kat',
           last_name: 'Moon',
           email: 'kat@lunafringe.com',
           userType: 'stylist',
