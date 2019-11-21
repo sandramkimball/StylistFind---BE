@@ -4,12 +4,14 @@ exports.up = function(knex) {
 
     .createTable('countries', tbl=> {
         tbl.increments('id').primary();
-        tbl.string('name').notNullable();
+        tbl.string('country').notNullable();
     })
   
     .createTable('cities', tbl=> {
         tbl.increments('id').primary();
-        tbl.string('name').notNullable();
+        tbl.string('city').notNullable();
+        tbl.string('zipcode').notNullable();
+        tbl.string('state').notNullable();
         tbl
           .integer('country_id')
           .unsigned()
@@ -22,8 +24,10 @@ exports.up = function(knex) {
 
     .createTable('salons', tbl=> {
         tbl.increments('id').primary();
-        tbl.string('name').notNullable();
+        tbl.string('salon').notNullable();
         tbl.string('address').notNullable();
+        tbl.string('zipcode').notNullable();
+        tbl.string('state').notNullable();
         tbl
           .integer('city_id')
           .unsigned()
@@ -40,7 +44,6 @@ exports.up = function(knex) {
           .inTable('countries')
           .onDelete('CASCADE')
           .onUpdate('CASCADE');
-
     })
 };
 

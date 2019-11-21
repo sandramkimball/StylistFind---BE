@@ -5,16 +5,16 @@ exports.up = function(knex) {
       users.increments('id').primary();
       users.string('username', 128).notNullable().unique();
       users.string('password', 128).notNullable();
-      users.string('first_name').notNullable();
-      users.string('last_name').notNullable();
+      users.string('name').notNullable();
       users.string('email').notNullable().unique();
       users.string('profile_img');
+      users.string('usertype').notNullable();
     })
   
-   .createTable('comment', tbl=> {
+   .createTable('reviews', tbl=> {
         tbl.increments('id').primary();
         tbl.timestamp('date').defaultTo(knex.fn.now());
-        tbl.string('content');      
+        tbl.text('review');      
         tbl.string('image');
         tbl
           .integer('user_id')
@@ -43,6 +43,6 @@ exports.up = function(knex) {
   
   exports.down = function(knex) {
       return knex.schema
-      .dropTableIfExists('comments')
+      .dropTableIfExists('reviews')
       .dropTableIfExists('users')
   };

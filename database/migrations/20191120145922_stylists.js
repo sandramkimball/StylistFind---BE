@@ -2,16 +2,17 @@
 exports.up = function(knex) {
     return knex.schema
     
-    .createTable('stylists', users=> {
-      users.increments('id').primary();
-      users.string('username', 128).notNullable().unique();
-      users.string('password', 128).notNullable();
-      users.string('first_name').notNullable();
-      users.string('last_name').notNullable();
-      users.string('email').notNullable().unique();
-      users.string('profile_img');
-      users.text('bio');
-      tbl
+   .createTable('stylists', stylists=> {
+    stylists.increments('id').primary();
+    stylists.string('username', 128).notNullable().unique();
+    stylists.string('password', 128).notNullable();
+    stylists.string('first_name').notNullable();
+    stylists.string('last_name').notNullable();
+    stylists.string('email').notNullable().unique();
+    stylists.string('usertype').notNullable();
+    stylists.string('profile_img');
+    stylists.text('bio');
+    stylists
           .integer('salon_id')
           .unsigned()
           .notNullable()
@@ -24,14 +25,14 @@ exports.up = function(knex) {
    .createTable('posts', tbl=> {
         tbl.increments('id').primary();
         tbl.timestamp('date').defaultTo(knex.fn.now());
-        tbl.string('comment');  
+        tbl.text('comment');  
         tbl.string('image');
         tbl
           .integer('stylist_id')
           .unsigned()
           .notNullable()
           .references('id')
-          .inTable('users')
+          .inTable('stylists')
           .onDelete('CASCADE')
           .onUpdate('CASCADE');    
     })
