@@ -1,4 +1,4 @@
-const Users = require('../users/users-model.js');
+const Users = require('./users-model.js');
 
 
 module.exports={
@@ -12,8 +12,12 @@ function validateUser(user){
         errors.push('Please create a username.')
     }
 
-    if (user.name === null){
-        errors.push('Please add a name.')
+    if (user.first_name === null){
+        errors.push('Please add your last name.')
+    }
+
+    if (user.last_name === null){
+        errors.push('Please add your last name.')
     }
 
     if (user.password === null){
@@ -21,13 +25,12 @@ function validateUser(user){
     }
 
     if (user.email === null){
-        errors.push('Please create a email.')
+        errors.push('Please add a email.')
     }
 
-    // Users.findBy(user.username) { 
-    //     if(Users.username){
-    //     errors.push('That username already exists.')
-    // }}
+    if(user.usertype === 'stylist' && user.salon === null && user.address === null){
+        errors.push('Please provide an address or salon. Your clients need to know where you are!')
+    }
 
     return {
         isSuccessful: errors.length > 0 ? false:true,
