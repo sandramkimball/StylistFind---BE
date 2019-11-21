@@ -1,7 +1,5 @@
 
-exports.seed = function(knex) {
-  return knex('stylists').del()
-    .then(function () {
+exports.seed = function(knex, Promise) {
       return knex('stylists').insert([
         
         {
@@ -39,5 +37,4 @@ exports.seed = function(knex) {
         },
 
       ]);
-    });
 };

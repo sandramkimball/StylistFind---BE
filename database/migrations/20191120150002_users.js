@@ -1,6 +1,27 @@
 exports.up = function(knex) {
     return knex.schema
 
+    
+    .createTable('countries', tbl=> {
+        tbl.increments('id').primary();
+        tbl.string('country').notNullable();
+    })
+
+    .createTable('cities', tbl=> {
+        tbl.increments('id').primary();
+        tbl.string('city').notNullable();
+        tbl.string('zipcode').notNullable();
+        tbl.string('state').notNullable();
+        tbl
+          .integer('country_id')
+          .unsigned()
+          .notNullable()
+          .references('id')
+          .inTable('countries')
+          .onDelete('CASCADE')
+          .onUpdate('CASCADE');
+    })
+    
     .createTable('salons', tbl=> {
         tbl.increments('id').primary();
         tbl.string('salon').notNullable();
@@ -28,6 +49,16 @@ exports.up = function(knex) {
               .onDelete('CASCADE')
               .onUpdate('CASCADE');
     })
+    
+    .createTable('users', users=> {
+        users.increments('id').primary();
+        users.string('username', 128).notNullable().unique();
+        users.string('password', 128).notNullable();
+        users.string('name').notNullable();
+        users.string('email').notNullable().unique();
+        users.string('profile_img');
+        users.string('usertype').notNullable();
+    })
       
     .createTable('posts', tbl=> {
             tbl.increments('id').primary();
@@ -42,16 +73,6 @@ exports.up = function(knex) {
               .inTable('stylists')
               .onDelete('CASCADE')
               .onUpdate('CASCADE');    
-    })
-    
-    .createTable('users', users=> {
-        users.increments('id').primary();
-        users.string('username', 128).notNullable().unique();
-        users.string('password', 128).notNullable();
-        users.string('name').notNullable();
-        users.string('email').notNullable().unique();
-        users.string('profile_img');
-        users.string('usertype').notNullable();
     })
     
     .createTable('reviews', tbl=> {
@@ -83,25 +104,6 @@ exports.up = function(knex) {
             .onUpdate('CASCADE');
     })
 
-    .createTable('countries', tbl=> {
-        tbl.increments('id').primary();
-        tbl.string('country').notNullable();
-    })
-
-    .createTable('cities', tbl=> {
-        tbl.increments('id').primary();
-        tbl.string('city').notNullable();
-        tbl.string('zipcode').notNullable();
-        tbl.string('state').notNullable();
-        tbl
-          .integer('country_id')
-          .unsigned()
-          .notNullable()
-          .references('id')
-          .inTable('countries')
-          .onDelete('CASCADE')
-          .onUpdate('CASCADE');
-    })
 
   };
   
