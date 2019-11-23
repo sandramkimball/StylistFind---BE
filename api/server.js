@@ -5,7 +5,7 @@ const cors = require('cors');
 const authRouter = require('../auth/auth-router.js');
 const usersRouter = require('../users/users-router.js');
 const stylistsRouter = require('../stylists/stylists-router.js');
-const stylistsRouter = require('../search/search-router.js');
+const searchRouter = require('../search/search-router.js');
 
 const server = express();
 
