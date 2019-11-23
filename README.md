@@ -26,6 +26,11 @@ GET: <br>
     /api/stylists/:id/posts
     /api/stylists/:id/posts/:id
 
+    /api/search/:city
+    /api/search/:zipcode
+    /api/search/:salon
+    /api/search/:stylist
+
 
 POST:<br>
     /auth/register

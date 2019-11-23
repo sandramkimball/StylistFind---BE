@@ -3,8 +3,8 @@ const Search = require('./search-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
-router.get('/search/cities/:name', restricted, (req, res) => {
-    name = req.params.name;
+router.get('/search/:city', restricted, (req, res) => {
+    name = req.params.city;
     db
     .select('*')
     .from('cities')
@@ -33,8 +33,8 @@ router.get('/search/:zipcode', restricted, (req, res) => {
     });
 });
 
-router.get('/search/salons/:name', restricted, (req, res) => {
-    id = req.params.name;
+router.get('/search/:salons', restricted, (req, res) => {
+    name = req.params.salons;
     db
     .select('*')
     .from('salons')
@@ -48,8 +48,8 @@ router.get('/search/salons/:name', restricted, (req, res) => {
       });
   });
   
-router.get('/search/stylists/:name', restricted, (req, res) => {
-    id = req.params.name;
+router.get('/search/:stylists', restricted, (req, res) => {
+    name = req.params.stylists;
     db
     .select('*')
     .from('stylists')
