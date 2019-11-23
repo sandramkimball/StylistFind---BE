@@ -5,6 +5,7 @@ const cors = require('cors');
 const authRouter = require('../auth/auth-router.js');
 const usersRouter = require('../users/users-router.js');
 const stylistsRouter = require('../stylists/stylists-router.js');
+const stylistsRouter = require('../search/search-router.js');
 
 const server = express();
 
@@ -15,6 +16,7 @@ server.use(cors());
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/stylists', stylistsRouter);
+server.use('/api/search', searchRouter);
 
 server.get('/', (req, res) => {
   res.send("Let\'s find you a stylist.");
