@@ -3,7 +3,7 @@ const Search = require('./search-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
-router.get('/search/:city', restricted, (req, res) => {
+router.get('/search/:city',  (req, res) => {
     name = req.params.city;
     db
     .select('*')
@@ -20,7 +20,7 @@ router.get('/search/:city', restricted, (req, res) => {
       });
   });
 
-router.get('/search/:zipcode', restricted, (req, res) => {
+router.get('/search/:zipcode',  (req, res) => {
     zip = req.params.zipcode;
     Search
     .findByZip(zip)
@@ -33,7 +33,7 @@ router.get('/search/:zipcode', restricted, (req, res) => {
     });
 });
 
-router.get('/search/:salons', restricted, (req, res) => {
+router.get('/search/:salons',  (req, res) => {
     name = req.params.salons;
     db
     .select('*')
@@ -48,7 +48,7 @@ router.get('/search/:salons', restricted, (req, res) => {
       });
   });
   
-router.get('/search/:stylists', restricted, (req, res) => {
+router.get('/search/:stylists',  (req, res) => {
     name = req.params.stylists;
     db
     .select('*')

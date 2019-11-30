@@ -5,7 +5,7 @@ const restricted = require('../auth/restricted-middleware.js');
 
 
 //GET
-router.get('/', restricted, (req, res) => {
+router.get('/', restried, (req, res) => {
   Stylists
   .find()
   .then(users => {
@@ -35,7 +35,7 @@ router.get('/:id', restricted, (req, res) => {
   });
 });
 
-router.get('/:id/posts', restricted, (req, res) => {
+router.get('/:id/posts', (req, res) => {
   id = req.params.id;
   db
   .select('posts.*' )
