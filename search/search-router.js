@@ -37,7 +37,6 @@ router.get('/',  (req, res) => {
     db
     .select('*')
     .from('salons')
-    .where('salons.name', '=', `name`)
     .join('stylists', 'salons.id', '=', `stylists.salon_id`)
     .join('cities', 'salons.zipcode', '=', `cities.zipcode`)
     .then(salons => {
@@ -45,7 +44,7 @@ router.get('/',  (req, res) => {
     })
       .catch(err=> {
         console.log(err);
-        res.status(500).json({error: 'Error retrieving salons.'})
+        res.status(500).json({error: 'Error retrieving salons.', error})
       });
   });
   
