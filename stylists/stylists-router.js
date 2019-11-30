@@ -5,7 +5,7 @@ const restricted = require('../auth/restricted-middleware.js');
 
 
 //GET
-router.get('/', restried, (req, res) => {
+router.get('/', (req, res) => {
   Stylists
   .find()
   .then(users => {
