@@ -33,18 +33,19 @@ router.get('/search/:zipcode',  (req, res) => {
     });
 });
 
-router.get('/search/:salons',  (req, res) => {
-    name = req.params.salons;
+router.get('/',  (req, res) => {
     db
     .select('*')
     .from('salons')
-    .where('salons.name', '=', `${name}`)
+    .where('salons.name', '=', `name`)
+    .join('stylists', 'salons.id', '=', `stylists.salon_id`)
+    .join('cities', 'salons.zipcode', '=', `cities.zipcode`)
     .then(salons => {
       res.status(200).json(salons)
     })
       .catch(err=> {
         console.log(err);
-        res.status(500).json({error: 'Error retrieving posts.'})
+        res.status(500).json({error: 'Error retrieving salons.'})
       });
   });
   
