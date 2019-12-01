@@ -22,8 +22,8 @@ router.get('/profile/:id', (req, res) => {
   return db
   .select('stylists.*', 'posts.*')
   .from('stylists')
-  .where({id}) 
-  .join('posts', 'posts.stylist_id', '=', 'stylists.id')
+  .where('stylists.id', '=', {id}) 
+  .join('posts', 'posts.stylist_id', '=', {id})
   .join('salons', 'salons.id', '=', 'stylists.salon_id')
   .then(user => {
     if (user) {
@@ -34,7 +34,7 @@ router.get('/profile/:id', (req, res) => {
   })
   .catch(err => {
     console.log(err);
-    res.status(500).json({ message: 'Failed to get stylist.' });
+    res.status(500).json({ err });
   });
 });
 
