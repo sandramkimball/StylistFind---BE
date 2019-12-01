@@ -19,11 +19,11 @@ router.get('/', (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-  db
-  .select('*')
+  return db
+  .select('*', 'posts.*')
   .from('stylists')
   .where({id}) 
-  // .join('posts', 'posts.stylist_id', '=', 'stylists.id')
+  .join('posts', 'posts.stylist_id', '=', 'stylists.id')
   .join('salons', 'salons.id', '=', 'stylists.salon_id')
   .then(user => {
     if (user) {
