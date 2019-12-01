@@ -17,10 +17,10 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id/profile', (req, res) => {
+router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   db
-  .select('stylist.first_name', 'stylist.last_name', 'stylist.email', 'stylist.bio', 'stylist.profile_img', 'stylist.salon_id', 'posts.*')
+  .select('stylists.first_name', 'stylists.last_name', 'stylists.email', 'stylists.bio', 'stylists.profile_img', 'stylists.salon_id', 'posts.*')
   .from('stylists')
   .where({id}) 
   .join('posts', 'posts.stylist_id', '=', 'stylists.id')
