@@ -60,7 +60,7 @@ function remove(id) {
 
 function removePost(id) {
   return db('posts')
-    .join('usestylistss', 'posts.stylist_id', '=', 'stylists.id')
+    .join('stylists', 'posts.stylist_id', '=', 'stylists.id')
     .where({ id })
     .del();
 }
