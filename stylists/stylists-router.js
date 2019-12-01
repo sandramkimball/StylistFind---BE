@@ -20,7 +20,7 @@ router.get('/', (req, res) => {
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   return db
-  .select('stylists.first_name', 'stylist.last_name', 'stylists.email', 'stylists.profile_img', 'stylists.bio', 'posts.*', 'stylists.salon_id as salon')
+  .select('stylists.first_name', 'stylist.last_name', 'stylists.email', 'stylists.profile_img', 'stylists.bio', 'stylists.salon_id', 'posts.*')
   .from('stylists')
   .where({id}) 
   .join('posts', 'posts.stylist_id', '=', {id})
