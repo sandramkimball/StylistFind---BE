@@ -22,7 +22,7 @@ router.get('/profile/:id', (req, res) => {
   return db
   .select('stylists.*')
   .from('stylists')
-  .where('stylists.id', '=', {id}) 
+  .where({id}) 
   // .join('posts', 'posts.stylist_id', '=', {id})
   // .join('salons', 'salons.id', '=', 'stylists.salon_id')
   .then(user => {
