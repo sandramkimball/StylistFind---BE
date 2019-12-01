@@ -17,7 +17,7 @@ router.get('/', restricted, (req, res) => {
   });
 });
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
   id = req.params.id;
 
   Users

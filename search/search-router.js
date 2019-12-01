@@ -3,6 +3,23 @@ const Search = require('./search-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
+
+router.get('/',  (req, res) => {
+    db
+    .select('*')
+    .from('salons')
+    .join('stylists', 'salons.id', '=', `stylists.salon_id`)
+    .join('cities', 'salons.zipcode', '=', `cities.zipcode`)
+    .then(salons => {
+      res.status(200).json(salons)
+    })
+      .catch(err=> {
+        console.log(err);
+        res.status(500).json({error: 'Error retrieving salons.', error})
+      });
+  });
+
+  
 router.get('/search/:city',  (req, res) => {
     name = req.params.city;
     db
@@ -32,21 +49,6 @@ router.get('/search/:zipcode',  (req, res) => {
         res.status(500).json({message: 'Request failed.'});
     });
 });
-
-router.get('/',  (req, res) => {
-    db
-    .select('*')
-    .from('salons')
-    .join('stylists', 'salons.id', '=', `stylists.salon_id`)
-    .join('cities', 'salons.zipcode', '=', `cities.zipcode`)
-    .then(salons => {
-      res.status(200).json(salons)
-    })
-      .catch(err=> {
-        console.log(err);
-        res.status(500).json({error: 'Error retrieving salons.', error})
-      });
-  });
   
 router.get('/search/:stylists',  (req, res) => {
     name = req.params.stylists;
