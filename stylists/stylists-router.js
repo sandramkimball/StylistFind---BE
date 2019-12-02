@@ -23,7 +23,6 @@ router.get('/profile/:id', (req, res) => {
     .select('*')
     .from('stylists')
     .where('stylists.id', '=', `${id}`) 
-    .join('posts', 'posts.stylist_id', '=', `stylists.id`)
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
       if (stylist) {
@@ -56,13 +55,13 @@ router.get('/:id', restricted, (req, res) => {
   });
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/profile/:id/posts', (req, res) => {
   id = req.params.id;
   db
-  .select('posts.*' )
+  .select('*' )
   .from('posts')
-  .join('stylists', 'posts.stylist_id', '=', 'stylists.id')
-  .where('posts.user_id', '=', `${id}`)
+  .join('stylists', 'posts.stylist_id', '=', `${id}`)
+  .where('posts.stylist_id', '=', `${id}`)
   .then(posts => {
     res.status(200).json(posts)
   })
@@ -72,21 +71,6 @@ router.get('/:id/posts', (req, res) => {
     });
 });
 
-router.get('/:id/posts/:id', restricted, (req, res) => {
-  id = req.params.id;
-  db
-  .select('posts.*' )
-  .from('stylists')
-  .join('posts', 'stylist.id', '=', 'posts.stylists_id')
-  .where('posts.user_id', '=', `${id}`)
-  .then(posts => {
-    res.status(200).json(posts)
-  })
-    .catch(err=> {
-      console.log(err);
-      res.status(500).json({error: 'Error retrieving posts.'})
-    });
-});
 
 
 //POST
