@@ -20,10 +20,10 @@ router.get('/', (req, res) => {
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   return db
-  .select('stylists.first_name', 'stylist.last_name', 'stylists.email', 'stylists.profile_img', 'stylists.bio', 'stylists.salon_id', 'posts.*')
+  .select('stylists.first_name', 'stylist.last_name', 'stylists.email', 'stylists.profile_img', 'stylists.bio', 'stylists.salon_id')
   .from('stylists')
   .where({id}) 
-  .join('posts', 'posts.stylist_id', '=', {id})
+  // .join('posts', 'posts.stylist_id', '=', {id})
   // .join('salons', 'salons.id', '=', 'stylists.salon_id')
   .first()
   .then(user => {
