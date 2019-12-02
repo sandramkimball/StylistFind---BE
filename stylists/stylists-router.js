@@ -24,7 +24,7 @@ router.get('/profile/:id', (req, res) => {
   .from('stylists')
   .where({id}) 
   .join('posts', 'posts.stylist_id', '=', {id})
-  .join('salons', 'salons.id', '=', 'stylists.salon_id')
+  // .join('salons', 'salons.id', '=', 'stylists.salon_id')
   .first()
   .then(user => {
     if (user) {
