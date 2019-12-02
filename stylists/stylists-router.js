@@ -58,11 +58,11 @@ router.get('/profile/:id/posts', (req, res) => {
     .select('*' )
     .from('posts')
     .where('posts.stylist_id', '=', `${id}`)
-    .join('stylists', 'stylists.id', '=', `${id}`)
+    .join('stylists', 'stylists.id', '=', `posts.stylist_id`)
     .then(posts => {res.status(200).json(posts)})
     .catch(err=> {
       console.log(err);
-      res.status(500).json({error: 'Error retrieving posts.'})
+      res.status(500).json({error: 'Error retrieving posts.', err})
     });
 });
 
