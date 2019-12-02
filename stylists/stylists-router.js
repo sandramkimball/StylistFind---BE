@@ -20,24 +20,23 @@ router.get('/', (req, res) => {
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   return db
-  // .select('stylists.first_name', 'stylist.last_name', 'stylists.email', 'stylists.profile_img', 'stylists.bio', 'stylists.salon_id')
-  .select('*')
-  .from('stylists')
-  .where({id}) 
-  // .join('posts', 'posts.stylist_id', '=', {id})
-  // .join('salons', 'salons.id', '=', 'stylists.salon_id')
-  .first()
-  .then(user => {
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ message: 'Could not find stylist with given id.' })
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({ err });
-  });
+    .select('*')
+    .from('stylists')
+    .where({id}) 
+    .first()
+    .join('posts', 'posts.stylist_id', '=', {id})
+    .join('salons', 'stylists.salon_id', '=', 'salons.id' )
+    .then(stylist => {
+      if (stylist) {
+        res.json(stylist);
+      } else {
+        res.status(404).json({ message: `Could not find stylist with id ${id}.`})
+      }
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500).json({ err });
+    });
 });
 
 router.get('/:id', restricted, (req, res) => {
