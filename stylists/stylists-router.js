@@ -5,6 +5,24 @@ const restricted = require('../auth/restricted-middleware.js');
 
 
 //GET
+router.get('/:id', restricted, (req, res) => {
+  id = req.params.id;
+
+  Stylists
+  .findById(id)
+  .then(user => {
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'Could not find stylist with given id.' })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get stylist by id' });
+  });
+});
+
 router.get('/', (req, res) => {
   Stylists
   .find()
@@ -25,11 +43,8 @@ router.get('/profile/:id', (req, res) => {
     .where('stylists.id', '=', `${id}`) 
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
-      if (stylist) {
-        res.json(stylist);
-      } else {
-        res.status(404).json({ message: `Could not find stylist with id ${id}.`})
-      }
+      if (stylist) {res.json(stylist);
+      } else {res.status(404).json({ message: `Could not find stylist with id ${id}.`})}
     })
     .catch(err => {
       console.log(err);
@@ -37,34 +52,14 @@ router.get('/profile/:id', (req, res) => {
     });
 });
 
-router.get('/:id', restricted, (req, res) => {
-  id = req.params.id;
-
-  Stylists
-  .findById(id)
-  .then(user => {
-    if (user) {
-      res.json(user);
-    } else {
-      res.status(404).json({ message: 'Could not find stylist with given id.' })
-    }
-  })
-  .catch(err => {
-    console.log(err);
-    res.status(500).json({ message: 'Failed to get stylist by id' });
-  });
-});
-
 router.get('/profile/:id/posts', (req, res) => {
   id = req.params.id;
-  db
-  .select('*' )
-  .from('posts')
-  .join('stylists', 'posts.stylist_id', '=', `${id}`)
-  .where('posts.stylist_id', '=', `${id}`)
-  .then(posts => {
-    res.status(200).json(posts)
-  })
+  return db
+    .select('*' )
+    .from('posts')
+    .where('posts.stylist_id', '=', `${id}`)
+    .join('stylists', 'stylists.id', '=', `${id}`)
+    .then(posts => {res.status(200).json(posts)})
     .catch(err=> {
       console.log(err);
       res.status(500).json({error: 'Error retrieving posts.'})
