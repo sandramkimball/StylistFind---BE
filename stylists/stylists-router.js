@@ -22,9 +22,8 @@ router.get('/profile/:id', (req, res) => {
   return db
     .select('*')
     .from('stylists')
-    .where({id}) 
-    .first()
-    .join('posts', 'posts.stylist_id', '=', {id})
+    .where('stylists.id', '=', `${id}`) 
+    .join('posts', 'posts.stylist_id', '=', `stylists.id`)
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
       if (stylist) {
