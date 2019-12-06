@@ -45,7 +45,7 @@ router.get('/reviews',  (req, res) => {
   })
     .catch(err=> {
       console.log(err);
-      res.status(500).json({error: 'Error retrieving posts.', error})
+      res.status(500).json({error: 'Error retrieving reviews.', error})
     });
 });
 
