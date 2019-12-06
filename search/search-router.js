@@ -19,20 +19,35 @@ router.get('/',  (req, res) => {
       });
   });
 
-  router.get('/posts',  (req, res) => {
-    db
-    .select('*')
-    .from('posts')
-    .join('stylists', 'stylist.id', '=', `posts.stylist_id`)
-    .join('users', 'users.id', '=', `posts.user_id`)
-    .then(posts => {
-      res.status(200).json(posts)
-    })
-      .catch(err=> {
-        console.log(err);
-        res.status(500).json({error: 'Error retrieving posts.', error})
-      });
-  });
+router.get('/posts',  (req, res) => {
+  db
+  .select('posts.*', 'stylist.username as stylist', 'user.username as user')
+  .from('posts')
+  .join('stylists', 'stylist.id', '=', `posts.stylist_id`)
+  .join('users', 'users.id', '=', `posts.user_id`)
+  .then(posts => {
+    res.status(200).json(posts)
+  })
+    .catch(err=> {
+      console.log(err);
+      res.status(500).json({error: 'Error retrieving posts.', error})
+    });
+});
+
+router.get('/reviews',  (req, res) => {
+  db
+  .select('posts.*', 'stylist.username as stylist', 'user.username as user')
+  .from('reviews')
+  .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
+  .join('users', 'users.id', '=', `reviews.user_id`)
+  .then(posts => {
+    res.status(200).json(posts)
+  })
+    .catch(err=> {
+      console.log(err);
+      res.status(500).json({error: 'Error retrieving posts.', error})
+    });
+});
 
   
 router.get('/search/:city',  (req, res) => {
