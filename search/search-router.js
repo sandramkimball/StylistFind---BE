@@ -40,8 +40,8 @@ router.get('/reviews',  (req, res) => {
   .from('reviews')
   .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
   .join('users', 'users.id', '=', `reviews.user_id`)
-  .then(posts => {
-    res.status(200).json(posts)
+  .then(reviews => {
+    res.status(200).json(reviews)
   })
     .catch(err=> {
       console.log(err);
