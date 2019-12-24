@@ -38,14 +38,19 @@ module.exports = {
   },
 
   production: {
-    client: 'pg',
-    connection: process.env.DATABASE_URL,
+    client: 'postgresql',
+    connection: {
+      database: 'my_db',
+      user:     'username',
+      password: 'password'
+    },
+    useNullAsDefault: true,
     migrations: {
       directory: './database/migrations',
     },
     seeds: {
       directory: './database/seeds',
     }
-  }
+  },
 
 };
