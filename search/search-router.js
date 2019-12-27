@@ -1,7 +1,6 @@
 const router = require('express').Router();
 const Search = require('./search-model.js');
 const db = require('../database/dbConfig.js');
-const restricted = require('../auth/restricted-middleware.js');
 
 
 router.get('/',  (req, res) => {
@@ -36,7 +35,7 @@ router.get('/posts',  (req, res) => {
 
 router.get('/reviews',  (req, res) => {
   db
-  .select('posts.*', 'stylist.username as stylist', 'user.username as user')
+  .select('*')
   .from('reviews')
   .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
   .join('users', 'users.id', '=', `reviews.user_id`)
