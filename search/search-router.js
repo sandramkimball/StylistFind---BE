@@ -35,10 +35,10 @@ router.get('/posts',  (req, res) => {
 
 router.get('/reviews',  (req, res) => {
   return db
-  .select('*', 'stylist.username as stylist', 'user.username as user')
+  .select('*')
   .from('reviews')
-  .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
-  .join('users', 'users.id', '=', `reviews.user_id`)
+  .join('stylists', `reviews.stylist_id`, '=', 'stylists.id' )
+  .join('users', `reviews.user_id`, '=','users.id' )
   .then(reviews => {
     res.status(200).json(reviews)
   })
