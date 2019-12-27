@@ -35,7 +35,7 @@ router.get('/posts',  (req, res) => {
 
 router.get('/reviews',  (req, res) => {
   return db
-  .select('reviews.*', 'stylist.username as stylist', 'user.username as user')
+  .select('*', 'stylist.username as stylist', 'user.username as user')
   .from('reviews')
   .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
   .join('users', 'users.id', '=', `reviews.user_id`)
