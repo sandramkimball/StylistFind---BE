@@ -34,11 +34,11 @@ router.get('/posts',  (req, res) => {
 });
 
 router.get('/reviews',  (req, res) => {
-  db
+  return db
   .select('*')
   .from('reviews')
-  .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
-  .join('users', 'users.id', '=', `reviews.user_id`)
+  // .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
+  // .join('users', 'users.id', '=', `reviews.user_id`)
   .then(reviews => {
     res.status(200).json(reviews)
   })
@@ -64,7 +64,7 @@ router.get('/search/:city',  (req, res) => {
         console.log(err);
         res.status(500).json({error: 'Error retrieving posts.'})
       });
-  });
+});
 
 router.get('/search/:zipcode',  (req, res) => {
     zip = req.params.zipcode;
@@ -92,6 +92,6 @@ router.get('/search/:stylists',  (req, res) => {
         console.log(err);
         res.status(500).json({error: 'Error retrieving posts.'})
       });
-  });
+});
 
-  module.exports = router;
+module.exports = router;
