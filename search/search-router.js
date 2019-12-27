@@ -19,7 +19,7 @@ router.get('/',  (req, res) => {
   });
 
 router.get('/posts',  (req, res) => {
-  db
+  return db
   .select('posts.*', 'stylist.username as stylist', 'user.username as user')
   .from('posts')
   .join('stylists', 'stylist.id', '=', `posts.stylist_id`)
@@ -35,10 +35,10 @@ router.get('/posts',  (req, res) => {
 
 router.get('/reviews',  (req, res) => {
   return db
-  .select('*')
+  .select('reviews.*', 'stylist.username as stylist', 'user.username as user')
   .from('reviews')
-  // .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
-  // .join('users', 'users.id', '=', `reviews.user_id`)
+  .join('stylists', 'stylist.id', '=', `reviews.stylist_id`)
+  .join('users', 'users.id', '=', `reviews.user_id`)
   .then(reviews => {
     res.status(200).json(reviews)
   })
