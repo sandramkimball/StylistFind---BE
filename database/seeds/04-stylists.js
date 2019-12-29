@@ -9,8 +9,8 @@ exports.seed = function(knex, Promise) {
           last_name: 'Usman',
           email: 'richie@gmail.com',
           userType: 'stylist',
-          bio: 'Wassup? I am a hairstylist in Savannah.',
-          profile_img: 'https://images.unsplash.com/photo-1556755134-a67aafdbd686?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          bio: 'Wassup ya\'ll? I\'m Richie, a stylist and barber in Savannah, Ga.',
+          profile_img: 'https://images.unsplash.com/photo-1523532888648-532ebf887c74?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80',
           salon_id: 1,
         },
         {
