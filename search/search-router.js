@@ -24,6 +24,7 @@ router.get('/posts',  (req, res) => {
   .from('posts')
   .join('stylists', 'stylist.id', '=', `posts.stylist_id`)
   .join('users', 'users.id', '=', `posts.user_id`)
+  .orderBy('reviews.date', 'desc')
   .then(posts => {
     res.status(200).json(posts)
   })
@@ -39,6 +40,7 @@ router.get('/reviews',  (req, res) => {
   .from('reviews')
   .join('stylists', `reviews.stylist_id`, '=', 'stylists.id' )
   .join('users', `reviews.user_id`, '=','users.id' )
+  .orderBy('reviews.date', 'desc')
   .then(reviews => {
     res.status(200).json(reviews)
   })
@@ -48,7 +50,12 @@ router.get('/reviews',  (req, res) => {
     });
 });
 
-  
+
+module.exports = router;
+
+
+
+//FOR POSSIBLE FILTER/SORT BY OPTIONS:  
 router.get('/search/:city',  (req, res) => {
     name = req.params.city;
     db
@@ -94,4 +101,3 @@ router.get('/search/:stylists',  (req, res) => {
       });
 });
 
-module.exports = router;

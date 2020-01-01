@@ -5,9 +5,20 @@ const restricted = require('../auth/restricted-middleware.js');
 
 
 //GET
+router.get('/', (req, res) => {
+  Stylists
+  .find()
+  .then(users => {
+    res.json(users);
+  })
+  .catch (err => {
+    console.log(err);
+    res.status(500).json({message: 'Request failed to get stylists.'});
+  });
+});
+
 router.get('/:id', restricted, (req, res) => {
   id = req.params.id;
-
   Stylists
   .findById(id)
   .then(user => {
@@ -23,24 +34,11 @@ router.get('/:id', restricted, (req, res) => {
   });
 });
 
-router.get('/', (req, res) => {
-  Stylists
-  .find()
-  .then(users => {
-    res.json(users);
-  })
-  .catch (err => {
-    console.log(err);
-    res.status(500).json({message: 'Request failed to get stylists.'});
-  });
-});
-
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-  return db
-    .select('*')
-    .from('stylists')
-    .where('stylists.id', '=', `${id}`) 
+  Stylists
+    .findById(id)
+    // .where('stylists.id', '=', `${id}`) 
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
       if (stylist) {res.json(stylist);

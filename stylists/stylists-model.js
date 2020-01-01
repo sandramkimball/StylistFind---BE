@@ -29,7 +29,10 @@ async function addPost(post, stylist) {
 
 //FIND
 function find() {
-  return db('stylists').select('*');
+  return db('stylists')
+  .select('*')
+  .join('salons', 'salons.stylist_id', '=', 'stylists.id')
+  ;
 }
 
 function findBy(filter) {
