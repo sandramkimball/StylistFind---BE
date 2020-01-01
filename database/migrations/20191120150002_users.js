@@ -3,12 +3,12 @@ exports.up = function(knex) {
 
     
     .createTable('countries', tbl=> {
-        tbl.increments('id').primary();
+        tbl.increments().primary();
         tbl.string('country').notNullable();
     })
 
     .createTable('cities', tbl=> {
-        tbl.increments('id').primary();
+        tbl.increments().primary();
         tbl.string('city').notNullable();
         tbl.string('zipcode').notNullable();
         tbl.string('state').notNullable();
@@ -23,7 +23,7 @@ exports.up = function(knex) {
     })
     
     .createTable('salons', tbl=> {
-        tbl.increments('id').primary();
+        tbl.increments().primary();
         tbl.string('salon').notNullable();
         tbl.string('street_address').notNullable();
         tbl.string('city').notNullable();
@@ -33,7 +33,7 @@ exports.up = function(knex) {
     })
 
     .createTable('stylists', stylists=> {
-        stylists.increments('id').primary();
+        stylists.increments().primary();
         stylists.string('username', 128).notNullable().unique();
         stylists.string('password', 128).notNullable();
         stylists.string('first_name').notNullable();
@@ -52,7 +52,7 @@ exports.up = function(knex) {
     })
     
     .createTable('users', users=> {
-        users.increments('id').primary();
+        users.increments().primary();
         users.string('username', 128).notNullable().unique();
         users.string('password', 128).notNullable();
         users.string('name').notNullable();
@@ -62,7 +62,7 @@ exports.up = function(knex) {
     })
       
     .createTable('posts', tbl=> {
-            tbl.increments('id').primary();
+            tbl.increments().primary();
             tbl.timestamp('date').defaultTo(knex.fn.now());
             tbl.text('comment');  
             tbl.string('image');
@@ -77,7 +77,7 @@ exports.up = function(knex) {
     })
     
     .createTable('reviews', tbl=> {
-          tbl.increments('id').primary();
+          tbl.increments().primary();
           tbl.timestamp('date').defaultTo(knex.fn.now());
           tbl.text('review');      
           tbl.string('image');
@@ -117,5 +117,4 @@ exports.up = function(knex) {
       .dropTableIfExists('posts')
       .dropTableIfExists('stylists')
       .dropTableIfExists('salons')
-      
   };
