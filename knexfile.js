@@ -24,7 +24,7 @@ module.exports = {
   staging: {
     client: 'postgresql',
     connection: {
-      database: 'database'
+      filename: './database/auth.db3'
     },
     pool: {
       min: 2,
@@ -38,7 +38,7 @@ module.exports = {
   production: {
     client: 'postgresql',
     connection: {
-      database: 'database'
+      filename: './database/auth.db3'
     },
     useNullAsDefault: true,
     migrations: {
