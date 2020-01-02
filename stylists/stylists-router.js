@@ -39,6 +39,7 @@ router.get('/profile/:id', (req, res) => {
 
   return db
     .select('*')
+    .from('stylists')
     .where('stylists.id', '=', `${id}`) 
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
