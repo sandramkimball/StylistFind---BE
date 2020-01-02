@@ -36,9 +36,10 @@ router.get('/:id', restricted, (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-  Stylists
-    .findById(id)
-    // .where('stylists.id', '=', `${id}`) 
+
+  return db
+    .select('*')
+    .where('stylists.id', '=', `${id}`) 
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
     .then(stylist => {
       if (stylist) {res.json(stylist);
