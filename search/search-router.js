@@ -16,7 +16,7 @@ router.get('/',  (req, res) => {
         console.log(err);
         res.status(500).json({error: 'Error retrieving salons.', error})
       });
-  });
+});
 
 router.get('/posts',  (req, res) => {
   return db
