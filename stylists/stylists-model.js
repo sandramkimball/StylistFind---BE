@@ -44,10 +44,10 @@ function findBy(filter) {
 
 function findById(id) {
   return db('stylists')
-    .select('*')
+    .select('stylist.*', 'salons.*')
     .where({ id })
     .first()
-    .join('salons', 'stylists.salon_id', '=', 'salons.id' );
+    .leftJoin('salons', 'stylists.salon_id', '=', 'salons.id' );
 }
 
 function findByIdPublic(id) {
