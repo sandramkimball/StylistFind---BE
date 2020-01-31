@@ -36,11 +36,14 @@ function find() {
 }
 
 function findBy(filter) {
-  return db('stylists').where(filter);
+  return db('stylists')
+    .where(filter)
+    .first();
 }
 
 function findById(id) {
   return db('stylists')
+    .select('*')
     .where({ id })
     .first();
 }

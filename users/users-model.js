@@ -6,7 +6,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findPostById,
+  findReviewsById,
   remove,
   removePost,
 };
@@ -42,12 +42,11 @@ function findById(id) {
     .first();
 }
 
-function findPostById(id) {
-  return db('posts')
-    .join('users', 'posts.user_id', '=', 'users.id')
-    .select('posts.*', 'users.id as user')
+function findReviewsById(id) {
+  return db('reviews')
+    .join('users', 'reviews.user_id', '=', 'reviews.id')
+    .select('reviews.*', 'users.id as user')
     .where({ id })
-    .first();
 }
 
 

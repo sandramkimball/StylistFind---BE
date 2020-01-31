@@ -19,7 +19,6 @@ router.get('/', restricted, (req, res) => {
 
 router.get('/:id', (req, res) => {
   id = req.params.id;
-
   Users
   .findById(id)
   .then(user => {
@@ -35,38 +34,34 @@ router.get('/:id', (req, res) => {
   });
 });
 
+// router.get('/:id/reviews', restricted, (req, res) => {
+//   id = req.params.id;
+//   db
+//   .select('reviews.*' )
+//   .from('reviews')
+//   .join('users', 'reviews.user_id', '=', 'reviews.id')
+//   .where('reviews.user_id', '=', `${id}`)
+//   .then(posts => {
+//     res.status(200).json(posts)
+//   })
+//     .catch(err=> {
+//       console.log(err);
+//       res.status(500).json({error: 'Error retrieving reviews.'})
+//     });
+// });
+
 router.get('/:id/reviews', restricted, (req, res) => {
   id = req.params.id;
-  db
-  .select('reviews.*' )
-  .from('reviews')
-  .join('users', 'reviews.user_id', '=', 'reviews.id')
-  .where('reviews.user_id', '=', `${id}`)
-  .then(posts => {
-    res.status(200).json(posts)
+  Users
+  .findReviewsById(id)
+  .then(reviews => {
+    res.status(200).json(reviews)
   })
     .catch(err=> {
       console.log(err);
       res.status(500).json({error: 'Error retrieving reviews.'})
     });
 });
-
-router.get('/:id/reviews/:id', restricted, (req, res) => {
-  id=req.params.id;
-  db
-  .select('reviews.*' )
-  .from('users')
-  .join('reviews', 'users.id', '=', 'reviews.user_id')
-  .where('reviews.id', '=', `${id}`)
-  .then(review => {
-    res.status(200).json(review)
-  })
-    .catch(err=> {
-      console.log('Error: ', err)
-      res.status(500).json({error: 'Unable to find review.'})
-    });
-});
-
 
 
 //POST
