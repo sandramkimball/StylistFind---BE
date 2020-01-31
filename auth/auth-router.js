@@ -2,8 +2,8 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
-const { validateUser } = require('../users/users-helper.js');
-const { validateStylists } = require('../stylists/stylists-helper.js');
+const { validateUser } = require('./users-helper.js/index.js');
+const { validateStylists } = require('./stylists-helper.js/index.js');
 
 
 function getJwtToken(username){

@@ -1,15 +1,16 @@
-const Users = require('./users-model.js');
-
-
 module.exports={
-    validateUser
+    validateStylist
 }
 
-function validateUser(user){
+function validateStylist(user){
     let errors = [];
 
-    if (user.username === null){
-        errors.push('Please create a username.')
+    if (!user.username || user.username.length < 2){
+        errors.push('Username must be a minimum of 2 characters.')
+    }
+
+    if (!user.password || user.password.length < 5){
+        errors.push('Password must be a minimum of 5 characters.')
     }
 
     if (user.first_name === null){
@@ -28,9 +29,10 @@ function validateUser(user){
         errors.push('Please add a email.')
     }
 
-    if(user.usertype === 'stylist' && user.salon === null && user.address === null){
+    if(user.isStylist === true && user.salon === null && user.address === null){
         errors.push('Please provide an address or salon. Your clients need to know where you are!')
     }
+
 
     return {
         isSuccessful: errors.length > 0 ? false:true,
