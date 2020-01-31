@@ -39,8 +39,8 @@ router.get('/:id/reviews', (req, res) => {
   db
   .select('r.review', 'r.image', 'r.date', 'u.username', 'u.profile_image', 's.first_name' )
   .from('reviews as r')
-  .innerJoin('users as u', 'u.id', '=', 'reviews.user_id')
-  .innerJoin('stylists as s', 's.id', '=', 'reviews.stylist_id')
+  .join('users as u', 'u.id', '=', 'reviews.user_id')
+  .join('stylists as s', 's.id', '=', 'reviews.stylist_id')
   .where('reviews.user_id', '=', `${id}`)
   .then(reviews => {
     res.status(200).json(reviews)
