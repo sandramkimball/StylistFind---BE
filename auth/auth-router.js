@@ -2,6 +2,7 @@ const router = require('express').Router();
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
+const Stylists = require('../stylists/stylists-model.js');
 const { validateUser } = require('./users-helper.js/index.js');
 const { validateStylists } = require('./stylists-helper.js/index.js');
 
@@ -23,14 +24,18 @@ router.post('/login', (req, res) => {
   let { username, password } = req.body;
   let istStylist = req.decodedJwt.isStylist
 
+  if(!username || !password){
+    return res.status(401).json(
+      {message: 'Missing one or both required fields.'}
+    )
+  }
+
   if (istStylist === true){
     Stylist.findBy({ username })
-    .first()
     .then(stylist => {
       if (stylist && bcrypt.compareSync(password, stylist.password)) {
         const token = getJwtToken(stylist.username);
         req.body.username = user.username;
-
         res.status(200).json({
           message: `Welcome back, ${stylist.username}.`,
           token,
@@ -40,18 +45,16 @@ router.post('/login', (req, res) => {
       }
     })
     .catch(error => {
-      res.status(500).json(error);
+      res.status(500).json({ message: 'Could not find user.', error });
     });
   }
 
   else {
     Users.findBy({ username })
-      .first()
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
           const token = getJwtToken(user.username);
           req.body.username = user.username;
-
           res.status(200).json({
             message: `Welcome back, ${user.username}.`,
             token,
@@ -61,7 +64,7 @@ router.post('/login', (req, res) => {
         }
       })
       .catch(error => {
-        res.status(500).json(error);
+        res.status(500).json({ message: 'Could not find user.', error });
       });
   }
 
