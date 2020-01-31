@@ -45,7 +45,7 @@ function findBy(filter) {
 function findById(id) {
   return db('stylists')
     .select('*')
-    .where(`${id}`) 
+    .where({id}) 
     .first();
 }
 
