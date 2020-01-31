@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
   db
-  .select('reviews.*' )
+  .select('reviews.*', 'user.username', 'user.profile_image', 'stylist.first_name' )
   .from('reviews')
   .join('users', 'reviews.user_id', '=', 'reviews.id')
   .where('reviews.user_id', '=', `${id}`)
@@ -49,19 +49,6 @@ router.get('/:id/reviews', (req, res) => {
       res.status(500).json({error: 'Error retrieving reviews.'})
     });
 });
-
-// router.get('/:id/reviews', (req, res) => {
-//   id = req.params.id;
-//   Users
-//   .findReviewsById(id)
-//   .then(reviews => {
-//     res.status(200).json(reviews)
-//   })
-//     .catch(err=> {
-//       console.log(err);
-//       res.status(500).json({error: 'Error retrieving reviews.'})
-//     });
-// });
 
 
 //POST
