@@ -45,7 +45,7 @@ function findBy(filter) {
 function findById(id) {
   return db('stylists')
     .select('stylist.*', 'salons.*')
-    .where({ id })
+    .where('stylists.id', '=', `${id}`) 
     .first()
     .leftJoin('salons', 'stylists.salon_id', '=', 'salons.id' );
 }
