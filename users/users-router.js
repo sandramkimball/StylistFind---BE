@@ -39,7 +39,7 @@ router.get('/:id/reviews', (req, res) => {
   db
   .select('reviews.*', 'users.username', 'users.profile_image', 'stylists.first_name' )
   .from('reviews')
-  .join('users', 'reviews.user_id', '=', 'users.id')
+  .leftJoin('users', 'reviews.user_id', '=', 'users.id')
   .where('reviews.user_id', '=', `${id}`)
   .then(reviews => {
     res.status(200).json(reviews)
