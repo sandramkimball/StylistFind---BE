@@ -36,7 +36,6 @@ router.get('/:id', restricted, (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-
   return db
     .select('*')
     .from('stylists')
