@@ -37,14 +37,12 @@ router.get('/:id', (req, res) => {
 router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
   return db
-  .select('*' )
-  .from('reviews as r')
-  .where('reviews.user_id', '=', `${id}`)
-  .join('users as u', 'u.id', '=', 'reviews.user_id')
-  .join('stylists as s', 's.id', '=', 'reviews.stylist_id')
-  .then(reviews => {
-    res.status(200).json(reviews)
-  })
+    .select('r.*' )
+    .from('reviews as r')
+    .where('reviews.user_id', '=', `${id}`)
+    .join('users as u', 'u.id', '=', 'reviews.user_id')
+    .join('stylists as s', 's.id', '=', 'reviews.stylist_id')
+    .then(reviews => { res.status(200).json(reviews) })
     .catch(err=> {
       console.log(err);
       res.status(500).json({error: 'Error retrieving reviews.'})
