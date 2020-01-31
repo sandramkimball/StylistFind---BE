@@ -37,7 +37,7 @@ module.exports = {
 
   production: {
     client: 'pg',
-    connection: process.env.DATABASE_URL,
+    connection: process.env.DATABASE_URL || 'https://stylistfind-db.herokuapp.com/',
     useNullAsDefault: true,
     migrations: {
       directory: './database/migrations',
