@@ -6,6 +6,7 @@ module.exports = {
   find,
   findBy,
   findById,
+  findByIdPublic,
   findPostById,
   remove,
   removePost,
@@ -46,6 +47,14 @@ function findById(id) {
     .select('*')
     .where({ id })
     .first();
+}
+
+function findByIdPublic(id) {
+  return db('stylists')
+    .select('*')
+    .where({ id })
+    .first()
+    .join('salons', 'stylists.salon_id', '=', 'salons.id' )
 }
 
 function findPostById(id) {

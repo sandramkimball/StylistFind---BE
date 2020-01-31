@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
   id = req.params.id;
   Stylists
   .findById(id)
@@ -36,8 +36,9 @@ router.get('/:id', restricted, (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-  return db('stylists')
+  return db
     .select('*')
+    .from('stylists')
     .where('stylists.id', '=', `${id}`) 
     .first()
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
