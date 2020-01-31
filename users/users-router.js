@@ -37,7 +37,7 @@ router.get('/:id', (req, res) => {
 router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
   db
-  .select('r.review', 'r.image', 'r.date', 'u.username', 'u.profile_image', 's.first_name' )
+  .select('*' )
   .from('reviews as r')
   .join('users as u', 'u.id', '=', 'reviews.user_id')
   .join('stylists as s', 's.id', '=', 'reviews.stylist_id')
