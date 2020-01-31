@@ -45,9 +45,9 @@ function findBy(filter) {
 function findById(id) {
   return db('stylists')
     .select('stylist.*', 'salons.*')
-    .where('stylists.id', '=', `${id}`) 
+    .where('stylists.id', '=', `id`) 
     .first()
-    .leftJoin('salons', 'stylists.salon_id', '=', 'salons.id' );
+    .join('salons', 'stylists.salon_id', '=', 'salons.id' );
 }
 
 function findByIdPublic(id) {
