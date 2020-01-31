@@ -34,7 +34,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.get('/:id/reviews', restricted, (req, res) => {
+router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
   db
   .select('reviews.*' )
