@@ -36,22 +36,19 @@ router.get('/:id', restricted, (req, res) => {
 
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
-  return db
+  return db('stylists')
     .select('*')
-    .from('stylists')
     .where('stylists.id', '=', `${id}`) 
+    .first()
     .join('salons', 'stylists.salon_id', '=', 'salons.id' )
-    .then(stylist => {
-      if (stylist) {res.json(stylist);
-      } else {res.status(404).json({ message: `Could not find stylist with id ${id}.`})}
-    })
+    .then(stylist => {res.status(200).json(stylist)})
     .catch(err => {
       console.log(err);
-      res.status(500).json({ err });
+      res.status(500).json({ message: `Could not find stylist with id ${id}.`})
     });
 });
 
-router.get('/profile/:id/posts', (req, res) => {
+router.get('/:id/posts', (req, res) => {
   id = req.params.id;
   return db
     .select('*' )
@@ -64,6 +61,7 @@ router.get('/profile/:id/posts', (req, res) => {
       res.status(500).json({error: 'Error retrieving posts.', err})
     });
 });
+
 
 //POST
 router.post("/login", (req, res) => {
