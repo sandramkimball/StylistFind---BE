@@ -2,6 +2,7 @@ const router = require('express').Router();
 const Stylists = require('./stylists-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
+const { validateStylists } = require('../stylists/stylists-helper.js');
 
 
 //GET
