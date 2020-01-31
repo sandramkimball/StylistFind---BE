@@ -2,7 +2,6 @@ const router = require('express').Router();
 const Stylists = require('./stylists-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
-const { validateStylists } = require('../stylists/stylists-helper.js');
 
 
 //GET
@@ -148,74 +147,6 @@ router.delete('/:id/posts/:id', restricted, (req, res) => {
   });
 });
 
-// function checkRole(role){
-//   return function(req, res, next){
-//     if(role === req.decodedJwt.role){
-//       next()
-//     } else {
-//       res.status(403).json({message: 'Access denied'})
-//     }
-//   }
-// }
-
-//LOGIN SIGNUP
-
-router.post('/register', (req, res) => {
-  let stylist = req.body;
-  const validateResults = validateStylists(stylist);
-
-  if(validateResults.isSuccessful === true){
-    const hash = bcrypt.hashSync(stylist.password, 10); // 2 ^ n
-    stylist.password = hash;
-
-    Stylists.add(stylist)
-      .then(saved => {
-        res.status(201).json(saved);
-      })
-      .catch(error => {
-        res.status(500).json(error);
-    });
-  } else {
-    res.status(400).json({message:'Error:', err: validateResults.errors})
-  }
-});
-
-router.post('/login', (req, res) => {
-  let { username, password } = req.body;
-
-  Stylists.findBy({ username })
-    .first()
-    .then(stylist => {
-      if (user && bcrypt.compareSync(password, stylist.password)) {
-        req.body.username = stylist.username;
-
-        const token = getJwtToken(stylist.username);
-
-        res.status(200).json({
-          message: `Welcome back, ${stylist.username}.`,
-          token,
-        });
-      } else {
-        res.status(401).json({ message: 'Invalid Credentials' });
-      }
-    })
-    .catch(error => {
-      res.status(500).json(error);
-    });
-});
-
-function getJwtToken(username){
-  const payload = {
-    username,
-    role: 'stylist' 
-  };
-  const secret = process.env.JWT_SECRET || 'Beautiful Hair';
-  const options = {
-    expiresIn: '1d'
-  };
-
-  return jwt.sign(payload, secret, options);
-}
 
 module.exports = router;
 
