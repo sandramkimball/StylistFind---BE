@@ -80,6 +80,7 @@ router.post('/register/user', (req, res) => {
       Users.add(user)
         .then(saved => {
           req.body.username = saved.username;
+          req.body.email = saved.email;
           res.status(201).json(saved);
         })
         .catch(error => {
@@ -100,6 +101,8 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.add(stylist)
       .then(saved => {
+        req.body.username = saved.username;
+        req.body.email = saved.email;
         res.status(201).json(saved);
       })
       .catch(error => {
