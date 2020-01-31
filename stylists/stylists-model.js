@@ -46,7 +46,8 @@ function findById(id) {
   return db('stylists')
     .select('*')
     .where({ id })
-    .first();
+    .first()
+    .join('salons', 'stylists.salon_id', '=', 'salons.id' );
 }
 
 function findByIdPublic(id) {
