@@ -161,14 +161,14 @@ router.delete('/:id/posts/:id', restricted, (req, res) => {
 //LOGIN SIGNUP
 
 router.post('/register', (req, res) => {
-  let user = req.body;
-  const validateResults = validateUser(user);
+  let stylist = req.body;
+  const validateResults = validateStylists(stylist);
 
   if(validateResults.isSuccessful === true){
-    const hash = bcrypt.hashSync(user.password, 10); // 2 ^ n
-    user.password = hash;
+    const hash = bcrypt.hashSync(stylist.password, 10); // 2 ^ n
+    stylist.password = hash;
 
-    Stylists.add(user)
+    Stylists.add(stylist)
       .then(saved => {
         res.status(201).json(saved);
       })
@@ -185,14 +185,14 @@ router.post('/login', (req, res) => {
 
   Stylists.findBy({ username })
     .first()
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        req.body.username = user.username;
+    .then(stylist => {
+      if (user && bcrypt.compareSync(password, stylist.password)) {
+        req.body.username = stylist.username;
 
-        const token = getJwtToken(user.username);
+        const token = getJwtToken(stylist.username);
 
         res.status(200).json({
-          message: `Welcome back, ${user.username}.`,
+          message: `Welcome back, ${stylist.username}.`,
           token,
         });
       } else {
@@ -207,7 +207,7 @@ router.post('/login', (req, res) => {
 function getJwtToken(username){
   const payload = {
     username,
-    role: 'user' 
+    role: 'stylist' 
   };
   const secret = process.env.JWT_SECRET || 'Beautiful Hair';
   const options = {
