@@ -36,12 +36,12 @@ router.get('/:id', (req, res) => {
 
 router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
-  db
+  return db
   .select('*' )
   .from('reviews as r')
+  .where('reviews.user_id', '=', `${id}`)
   .join('users as u', 'u.id', '=', 'reviews.user_id')
   .join('stylists as s', 's.id', '=', 'reviews.stylist_id')
-  .where('reviews.user_id', '=', `${id}`)
   .then(reviews => {
     res.status(200).json(reviews)
   })
