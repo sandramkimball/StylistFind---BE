@@ -40,7 +40,7 @@ router.get('/:id/reviews', (req, res) => {
     .select('reviews.*' )
     .from('reviews')
     .where('reviews.user_id', '=', `${id}`)
-    // .join('users as u', 'u.id', '=', 'reviews.user_id')
+    .join('users as u', 'u.id', '=', 'reviews.user_id')
     .then(reviews => { res.status(200).json(reviews) })
     .catch(err=> {
       console.log(err);
