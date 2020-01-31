@@ -26,14 +26,14 @@
     "fs": "0.0.1-security",
     "helmet": "^3.21.2",
     "jsonwebtoken": "^8.5.1",
-    "knex": "^0.20.2",
+    "knex": "^0.20.8",
     "node-cron": "^2.0.3",
     "node-pre-gyp": "^0.14.0",
-    "pg": "^7.14.0",
-    "sqlite3": "^4.1.0"
+    "pg": "^7.18.1",
+    "sqlite3": "^4.1.1"
   },
   "devDependencies": {
     "cross-env": "^6.0.3",
-    "nodemon": "^2.0.0"
+    "nodemon": "^2.0.2"
   }
 }
