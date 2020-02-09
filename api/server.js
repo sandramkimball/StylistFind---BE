@@ -12,6 +12,7 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
+// server.use(res.header('Acess-Control-Allow-Headers'))
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
