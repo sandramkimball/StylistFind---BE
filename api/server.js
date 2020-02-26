@@ -12,14 +12,13 @@ const server = express();
 server.use(helmet());
 server.use(express.json());
 server.use(cors());
-// server.use(res.header('Acess-Control-Allow-Headers'))
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/stylists', stylistsRouter);
 server.use('/api/search', searchRouter);
 
-server.get('/', (req, res) => {
+server.get('/', cors(), (req, res) => {
   res.send("Let\'s find you a stylist.");
 });
 

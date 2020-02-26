@@ -14,9 +14,7 @@ function getJwtToken(username){
   };
   const secret = process.env.JWT_SECRET || 'Beautiful Hair';
   const options = {
-    expiresIn: '1d',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Credentials': 'true',
+    expiresIn: '1d'
   };
 
   return jwt.sign(payload, secret, options);
