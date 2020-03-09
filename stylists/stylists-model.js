@@ -7,7 +7,6 @@ module.exports = {
   find,
   findBy,
   findById,
-  findByIdPublic,
   findPostById,
   remove,
   removePost,
