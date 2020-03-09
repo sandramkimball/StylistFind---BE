@@ -13,16 +13,13 @@ server.use(helmet());
 server.use(express.json());
 server.use( cors() );
 
-const corsOptions = {
-  origin: '*'
-}
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/stylists', stylistsRouter);
 server.use('/api/search', searchRouter);
 
-server.get('/', cors(corsOptions), (req, res) => {
+server.get('/', cors(), (req, res) => {
   res.send("Let\'s find you a stylist.");
 });
 
