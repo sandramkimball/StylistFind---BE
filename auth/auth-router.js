@@ -9,7 +9,7 @@ const { validateStylists } = require('./stylists-helper.js');
 
 function getJwtToken(user){
   const payload = {
-    username: user.username,
+    email: user.email,
     subject: user.id, //sub in payload is what token is about
     role: 'user' || 'stylist' 
   };
@@ -22,25 +22,25 @@ function getJwtToken(user){
 }
 
 router.post('/login', (req, res) => {
-  let { username, password } = req.body;
+  let { email, password } = req.body;
 
-  if(!username || !password){
-    return res.status(401).send({message: 'Missing username or password.'})
+  if(!email || !password){
+    return res.status(401).send({message: 'Missing email or password.'})
   }
-  Users.findBy({ username })
+  Users.findBy({ email })
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = getJwtToken(user);   
-      res.status(200).json({message: `Welcome back, ${user.username}.`, token});
+      res.status(200).json({message: `Welcome back, ${user.first_name}.`, token});
 
     } else {
-      Stylist.findStylistBy({ username })
+      Stylist.findStylistBy({ email })
       .then(stylist => {
         if (stylist && bcrypt.compareSync(password, stylist.password)) {
           const token = getJwtToken(stylist);
-          res.status(200).json({message: `Welcome back, ${stylist.username}.`, token});
+          res.status(200).json({message: `Welcome back, ${stylist.first_name}.`, token});
         } else {
-          res.status(401).send({ message: 'Username or password is incorrect.' });
+          res.status(401).send({ message: 'Email or password is incorrect.' });
         }
       })
     }
@@ -83,10 +83,10 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        req.body.username = saved.username;
+        req.body.first_name = saved.first_name;
+        req.body.last_name = saved.last_name;
         req.body.email = saved.email;
-        req.body.name = saved.name;
-        req.body.usertype = saved.user;
+        req.body.usertype = saved.usertype;
         res.status(201).json({message:'Stylist User created:', saved});
       })
       .catch(error => {

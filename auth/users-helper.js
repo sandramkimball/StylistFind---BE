@@ -5,11 +5,11 @@ module.exports={
 function validateUser(user){
     let errors = [];
 
-    if (user.username === null){
-        errors.push('Please create a username.')
+    if (user.first_name === null){
+        errors.push('Please add full name.')
     }
 
-    if (user.name === null){
+    if (user.last_name === null){
         errors.push('Please add your last name.')
     }
 

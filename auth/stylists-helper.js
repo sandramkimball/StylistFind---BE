@@ -5,16 +5,16 @@ module.exports={
 function validateStylist(user){
     let errors = [];
 
-    if (!user.username || user.username.length < 2){
-        errors.push('Username must be a minimum of 2 characters.')
-    }
-
     if (!user.password || user.password.length < 5){
         errors.push('Password must be a minimum of 5 characters.')
     }
 
-    if (user.name === null){
-        errors.push('Please add your last name.')
+    if (user.first_name === null){
+        errors.push('Please add your full name.')
+    }
+
+    if (user.last_name === null){
+        errors.push('Please add your full name.')
     }
 
     if (user.password === null){
