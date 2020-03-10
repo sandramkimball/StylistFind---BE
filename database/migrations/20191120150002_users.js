@@ -34,10 +34,9 @@ exports.up = function(knex) {
 
     .createTable('stylists', stylists=> {
         stylists.increments().primary();
-        stylists.string('username', 128).notNullable().unique();
+        stylists.string('first_name', 128).notNullable();
+        stylists.string('last_name', 128).notNullable();
         stylists.string('password', 128).notNullable();
-        stylists.string('first_name').notNullable();
-        stylists.string('last_name').notNullable();
         stylists.string('email').notNullable().unique();
         stylists.string('usertype').notNullable();
         stylists.string('profile_img');
@@ -53,9 +52,9 @@ exports.up = function(knex) {
     
     .createTable('users', users=> {
         users.increments().primary();
-        users.string('username', 128).notNullable().unique();
+        users.string('first_name', 128).notNullable();
+        users.string('last_name', 128).notNullable();
         users.string('password', 128).notNullable();
-        users.string('name').notNullable();
         users.string('email').notNullable().unique();
         users.string('profile_img');
         users.string('usertype').notNullable();
@@ -110,11 +109,11 @@ exports.up = function(knex) {
   
   exports.down = function(knex) {
       return knex.schema
-      .dropTableIfExists('cities')
-      .dropTableIfExists('countries')
       .dropTableIfExists('reviews')
-      .dropTableIfExists('users')
       .dropTableIfExists('posts')
+      .dropTableIfExists('users')
       .dropTableIfExists('stylists')
       .dropTableIfExists('salons')
+      .dropTableIfExists('cities')
+      .dropTableIfExists('countries')
   };

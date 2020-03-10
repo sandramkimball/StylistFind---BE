@@ -3,7 +3,6 @@ exports.seed = function(knex, Promise) {
       return knex('stylists').insert([
         
         {
-          username: 'Richie',
           password: 'Richie',
           first_name: 'Richie',
           last_name: 'Usman',
@@ -14,7 +13,6 @@ exports.seed = function(knex, Promise) {
           salon_id: 1,
         },
         {
-          username: 'Kat',
           password: 'Kat',
           first_name: 'Kat',
           last_name: 'Moon',
@@ -25,7 +23,6 @@ exports.seed = function(knex, Promise) {
           salon_id: 2,          
         },
         {
-          username: 'Stella',
           password: 'Stella',
           first_name: 'Stella',
           last_name: 'Dragon',

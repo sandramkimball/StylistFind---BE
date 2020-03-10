@@ -3,24 +3,24 @@ exports.seed = function(knex) {
   return knex('users').insert([
     {
       password: 'Cilia',
-      username: 'Cilia',
-      name: 'Cilia',
+      first_name: 'Cilia',
+      last_name: 'Cruz',
       email: 'cilia@gmail.com',
       usertype: 'user',
       profile_img: 'https://images.unsplash.com/photo-1509704215857-7ac19c9842b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
     },
     {
-      password: 'MaggieMoon',
-      username: 'MaggieMoon',
-      name: 'Maggie Moon',
+      password: 'Maggie',
+      first_name: 'Maggie',
+      last_name: 'Mills',
       email: 'maggie@gmail.com',
       usertype: 'user',
       profile_img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',  
     },
     {
       password: 'Stefano',
-      username: 'Stefano',
-      name: 'Stefano',
+      first_name: 'Stefano',
+      last_name: 'Stefan',
       email: 'stefano@gmail.com',
       usertype: 'user',
       profile_img: 'https://images.unsplash.com/photo-1522609925277-66fea332c575?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',      
