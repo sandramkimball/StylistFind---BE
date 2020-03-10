@@ -82,6 +82,7 @@ router.post('/register/user', (req, res) => {
   
       Users.add(user)
         .then(saved => {
+          req.body.name = saved.name;
           req.body.username = saved.username;
           req.body.email = saved.email;
           res.status(201).json({message:'User created:', saved});
