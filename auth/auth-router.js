@@ -7,9 +7,10 @@ const { validateUser } = require('./users-helper.js');
 const { validateStylists } = require('./stylists-helper.js');
 
 
-function getJwtToken(username){
+function getJwtToken(user){
   const payload = {
-    username,
+    username: user.username,
+    subject: user.id, //sub in payload is what token is about
     role: 'user' || 'stylist' 
   };
   const secret = process.env.JWT_SECRET || 'Beautiful Hair';
@@ -25,17 +26,16 @@ router.post('/login', (req, res) => {
   let istStylist = req.decodedJwt.isStylist
 
   if(!username || !password){
-    return res.status(401).json(
-      {message: 'Missing one or both required fields.'}
-    )
+    return res.status(401).json({message: 'Missing username or password.'})
   }
 
   if (istStylist === true){
-    Stylist.findBy({ username })
+    Stylist.findStylistBy({ username })
     .then(stylist => {
       if (stylist && bcrypt.compareSync(password, stylist.password)) {
-        const token = getJwtToken(stylist.username);
+        const token = getJwtToken(stylist);
         req.body.username = user.username;
+
         res.status(200).json({
           message: `Welcome back, ${stylist.username}.`,
           token,
@@ -53,8 +53,9 @@ router.post('/login', (req, res) => {
     Users.findBy({ username })
       .then(user => {
         if (user && bcrypt.compareSync(password, user.password)) {
-          const token = getJwtToken(user.username);
+          const token = getJwtToken(user);
           req.body.username = user.username;
+          
           res.status(200).json({
             message: `Welcome back, ${user.username}.`,
             token,
@@ -82,9 +83,6 @@ router.post('/register/user', (req, res) => {
   
       Users.add(user)
         .then(saved => {
-          req.body.name = saved.name;
-          req.body.username = saved.username;
-          req.body.email = saved.email;
           res.status(201).json({message:'User created:', saved});
         })
         .catch(error => {
@@ -103,7 +101,7 @@ router.post('/register/stylist', (req, res) => {
     const hash = bcrypt.hashSync(stylist.password, 10); // 2 ^ n
     stylist.password = hash;
 
-    Stylists.add(stylist)
+    Stylists.addStylist(stylist)
       .then(saved => {
         req.body.username = saved.username;
         req.body.email = saved.email;

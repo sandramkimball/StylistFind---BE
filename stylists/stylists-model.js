@@ -2,21 +2,21 @@ const db = require('../database/dbConfig.js');
 
 
 module.exports = {
-  add,
+  addStylist,
   addPost,
   find,
-  findBy,
-  findById,
+  findStylistBy,
+  findByStylistId,
   findPostById,
   remove,
   removePost,
 };
 
 //ADD
-async function add(stylist) {
+async function addStylist(stylist) {
   const [id] = await db('stylists').insert(stylist, 'id');
 
-  return findById(id);
+  return findByStylistId(id);
 }
 
 async function addPost(post, stylist) {
@@ -33,16 +33,16 @@ function find() {
   return db('stylists')
   .select('*')
   .join('salons', 'salons.stylist_id', '=', 'stylists.id')
-  ;
+  .first();
 }
 
-function findBy(filter) {
+function findStylistBy(filter) {
   return db('stylists')
     .where(filter)
     .first();
 }
 
-function findById(id) {
+function findByStylistId(id) {
   return db('stylists')
     .select('*')
     .where({id}) 
