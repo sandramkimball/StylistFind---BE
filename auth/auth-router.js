@@ -23,7 +23,6 @@ function getJwtToken(user){
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-  // let istStylist = req.decodedJwt.isStylist
 
   if(!username || !password){
     return res.status(401).send({message: 'Missing username or password.'})
@@ -31,8 +30,7 @@ router.post('/login', (req, res) => {
   Users.findBy({ username })
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
-      const token = getJwtToken(user);
-      req.body.username = user.username;      
+      const token = getJwtToken(user);   
       res.status(200).json({message: `Welcome back, ${user.username}.`, token});
 
     } else {
@@ -40,10 +38,9 @@ router.post('/login', (req, res) => {
       .then(stylist => {
         if (stylist && bcrypt.compareSync(password, stylist.password)) {
           const token = getJwtToken(stylist);
-          req.body.username = user.username;
           res.status(200).json({message: `Welcome back, ${stylist.username}.`, token});
         } else {
-          res.status(401).json({ message: 'Username or password is incorrect.' });
+          res.status(401).send({ message: 'Username or password is incorrect.' });
         }
       })
     }
@@ -69,7 +66,7 @@ router.post('/register/user', (req, res) => {
           res.status(201).json({message:'User created:', saved});
         })
         .catch(error => {
-          res.status(500).json({message:'Error. Unable to add new user:', error});
+          res.status(500).send({message:'Error. Unable to add new user:', error});
       });
     } else {
       res.status(400).json({message:'Error. One or more fields may be incorrect:', err: validateResults.errors})

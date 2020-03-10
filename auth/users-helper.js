@@ -9,11 +9,7 @@ function validateUser(user){
         errors.push('Please create a username.')
     }
 
-    if (user.first_name === null){
-        errors.push('Please add your last name.')
-    }
-
-    if (user.last_name === null){
+    if (user.name === null){
         errors.push('Please add your last name.')
     }
 
