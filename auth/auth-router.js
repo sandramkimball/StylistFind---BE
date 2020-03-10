@@ -26,7 +26,7 @@ router.post('/login', (req, res) => {
   // let istStylist = req.decodedJwt.isStylist
 
   if(!username || !password){
-    return res.status(401).json({message: 'Missing username or password.'})
+    return res.status(401).send({message: 'Missing username or password.'})
   }
   Users.findBy({ username })
   .then(user => {
@@ -48,9 +48,9 @@ router.post('/login', (req, res) => {
       })
     }
   })
-  
+
   .catch(error => {
-    res.status(500).json({ message: 'Could not find user.', error });
+    res.status(500).send({ message: 'Could not find user.', error });
   });
 });
 
