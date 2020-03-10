@@ -23,52 +23,35 @@ function getJwtToken(user){
 
 router.post('/login', (req, res) => {
   let { username, password } = req.body;
-  let istStylist = req.decodedJwt.isStylist
+  // let istStylist = req.decodedJwt.isStylist
 
   if(!username || !password){
     return res.status(401).json({message: 'Missing username or password.'})
   }
+  Users.findBy({ username })
+  .then(user => {
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const token = getJwtToken(user);
+      req.body.username = user.username;      
+      res.status(200).json({message: `Welcome back, ${user.username}.`, token});
 
-  if (istStylist === true){
-    Stylist.findStylistBy({ username })
-    .then(stylist => {
-      if (stylist && bcrypt.compareSync(password, stylist.password)) {
-        const token = getJwtToken(stylist);
-        req.body.username = user.username;
-
-        res.status(200).json({
-          message: `Welcome back, ${stylist.username}.`,
-          token,
-        });
-      } else {
-        res.status(401).json({ message: 'Username or password is incorrect.' });
-      }
-    })
-    .catch(error => {
-      res.status(500).json({ message: 'Could not find user.', error });
-    });
-  }
-
-  else {
-    Users.findBy({ username })
-      .then(user => {
-        if (user && bcrypt.compareSync(password, user.password)) {
-          const token = getJwtToken(user);
+    } else {
+      Stylist.findStylistBy({ username })
+      .then(stylist => {
+        if (stylist && bcrypt.compareSync(password, stylist.password)) {
+          const token = getJwtToken(stylist);
           req.body.username = user.username;
-          
-          res.status(200).json({
-            message: `Welcome back, ${user.username}.`,
-            token,
-          });
+          res.status(200).json({message: `Welcome back, ${stylist.username}.`, token});
         } else {
           res.status(401).json({ message: 'Username or password is incorrect.' });
         }
       })
-      .catch(error => {
-        res.status(500).json({ message: 'Could not find user.', error });
-      });
-  }
-
+    }
+  })
+  
+  .catch(error => {
+    res.status(500).json({ message: 'Could not find user.', error });
+  });
 });
 
 
