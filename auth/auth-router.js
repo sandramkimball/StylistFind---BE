@@ -14,7 +14,7 @@ function getJwtToken(username){
   };
   const secret = process.env.JWT_SECRET || 'Beautiful Hair';
   const options = {
-    expiresIn: '1d'
+    expiresIn: '2d'
   };
 
   return jwt.sign(payload, secret, options);
@@ -84,13 +84,13 @@ router.post('/register/user', (req, res) => {
         .then(saved => {
           req.body.username = saved.username;
           req.body.email = saved.email;
-          res.status(201).json(saved);
+          res.status(201).json({message:'User created:', saved});
         })
         .catch(error => {
-          res.status(500).json(error);
+          res.status(500).json({message:'Error. Unable to add new user:', error});
       });
     } else {
-      res.status(400).json({message:'Error:', err: validateResults.errors})
+      res.status(400).json({message:'Error. One or more fields may be incorrect:', err: validateResults.errors})
     }
 });
 
@@ -106,10 +106,12 @@ router.post('/register/stylist', (req, res) => {
       .then(saved => {
         req.body.username = saved.username;
         req.body.email = saved.email;
-        res.status(201).json(saved);
+        req.body.name = saved.name;
+        req.body.usertype = saved.user;
+        res.status(201).json({message:'Stylist User created:', saved});
       })
       .catch(error => {
-        res.status(500).json(error);
+        res.status(500).json({message:'Error. Unable to add new user:', error});
     });
   } else {
     res.status(400).json({message:'Error:', err: validateResults.errors})
