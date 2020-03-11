@@ -5,7 +5,7 @@ const restricted = require('../auth/restricted-middleware.js');
 
 
 //GET
-router.get('/', restricted, (req, res) => {
+router.get('/', (req, res) => {
   Users
   .find()
   .then(users => {

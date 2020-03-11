@@ -11,7 +11,7 @@ function getJwtToken(user){
   const payload = {
     email: user.email,
     subject: user.id, //sub in payload is what token is about
-    role: 'user' || 'stylist' 
+    usertype: 'user' || 'stylist' 
   };
   const secret = process.env.JWT_SECRET || 'Beautiful Hair';
   const options = {
@@ -25,8 +25,9 @@ router.post('/login', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
-    return res.status(401).send({message: 'Missing email or password.'})
+    return res.status(401).json({message: 'Server Error: Missing email or password.'})
   }
+
   Users.findBy({ email })
   .then(user => {
     if (user && bcrypt.compareSync(password, user.password)) {
@@ -40,14 +41,13 @@ router.post('/login', (req, res) => {
           const token = getJwtToken(stylist);
           res.status(200).json({message: `Welcome back, ${stylist.first_name}.`, token});
         } else {
-          res.status(401).send({ message: 'Email or password is incorrect.' });
+          res.status(401).json({ message: 'Email or password is incorrect.' });
         }
       })
     }
   })
-
   .catch(error => {
-    res.status(500).send({ message: 'Could not find user.', error });
+    res.status(500).json({ message: 'Could not find user.', error });
   });
 });
 
@@ -66,7 +66,7 @@ router.post('/register/user', (req, res) => {
           res.status(201).json({message:'User created:', saved});
         })
         .catch(error => {
-          res.status(500).send({message:'Error. Unable to add new user:', error});
+          res.status(500).json({message:'Error. Unable to add new user:', error});
       });
     } else {
       res.status(400).json({message:'Error. One or more fields may be incorrect:', err: validateResults.errors})
@@ -98,16 +98,3 @@ router.post('/register/stylist', (req, res) => {
 });
 
 module.exports = router;
-
-
-
-// function checkRole(role){
-//   return function(req, res, next){
-//     if(role === req.decodedJwt.role){
-//       next()
-//     } else {
-//       res.status(403).json({message: 'Access denied'})
-//     }
-//   }
-
-// }

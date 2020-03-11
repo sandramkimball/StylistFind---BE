@@ -63,23 +63,7 @@ router.get('/:id/posts', (req, res) => {
     });
 });
 
-
 //POST
-// router.post("/login", (req, res) => {
-//   const { email, password } = req.body;
-//   if (email === "cc" && password === "cc") {
-//     req.loggedIn = true;
-//     setTimeout(() => {
-//       res.status(200).json({
-//         payload: token
-//       });
-//     }, 1000);
-//   } else {
-//     res
-//       .status(403)
-//       .json({ error: "Email or Password incorrect." });
-//   }
-// });
 
 router.post('/:id/posts', restricted, (req, res) => {
   const postData = req.body;
