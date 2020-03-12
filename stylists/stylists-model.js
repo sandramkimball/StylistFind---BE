@@ -4,10 +4,12 @@ const db = require('../database/dbConfig.js');
 module.exports = {
   addStylist,
   addPost,
+  addSalon,
   find,
   findStylistBy,
   findByStylistId,
   findPostById,
+  findSalonById,
   remove,
   removePost,
 };
@@ -28,6 +30,14 @@ async function addPost(post, stylist) {
   .insert(post, 'id');
 
   return findPostById(id);
+}
+
+async function addSalon(post, stylist) {
+  const [id] = await db('salons')
+  .where('post.stylist_id', '=', `${stylist.id}`)
+  .insert(post, 'id');
+
+  return findSalonById(id);
 }
 
 
@@ -56,6 +66,14 @@ function findPostById(id) {
   return db('posts')
     .join('stylists', 'posts.stylist_id', '=', 'stylists.id')
     .select('posts.*', 'stylists.id as stylist')
+    .where({ id })
+    .first();
+}
+
+function findSalonById(id) {
+  return db('salons')
+    .join('stylists', 'salons.stylist_id', '=', 'stylists.id')
+    .select('salons.*', 'stylists.id as stylist')
     .where({ id })
     .first();
 }

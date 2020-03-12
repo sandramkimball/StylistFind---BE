@@ -93,4 +93,16 @@ router.post('/register/stylist', (req, res) => {
   }
 });
 
+router.post('/register/salon', (req, res) => {
+  let salon = req.body;
+    Salons.addSalon(salon)
+    .then(saved => {
+      res.status(201).json({message:'Salon profile created:', saved});
+    })
+    .catch(error => {
+      res.status(500).json({message:'Error. Unable to add new user:', error});
+  });
+});
+
+
 module.exports = router;
