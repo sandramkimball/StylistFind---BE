@@ -63,7 +63,7 @@ router.post('/register/user', (req, res) => {
   
       Users.add(user)
         .then(saved => {
-          res.status(201).json({message:'User created:', saved});
+          res.status(201).json({message:'User created:', saved, stylist});
         })
         .catch(error => {
           res.status(500).json({message:'Error. Unable to add new user:', error});
@@ -83,7 +83,7 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        res.status(201).json({message:'Stylist User created:', saved});
+        res.status(201).json({message:'Stylist User created:', saved, stylist});
       })
       .catch(error => {
         res.status(500).json({message:'Error. Unable to add new user:', error});
