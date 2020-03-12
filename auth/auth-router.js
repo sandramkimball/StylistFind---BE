@@ -83,10 +83,6 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        req.body.first_name = saved.first_name;
-        req.body.last_name = saved.last_name;
-        req.body.email = saved.email;
-        req.body.usertype = saved.usertype;
         res.status(201).json({message:'Stylist User created:', saved});
       })
       .catch(error => {

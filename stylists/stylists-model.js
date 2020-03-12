@@ -14,9 +14,12 @@ module.exports = {
 
 //ADD
 async function addStylist(stylist) {
-  const [id] = await db('stylists').insert(stylist, 'id');
-
-  return findByStylistId(id);
+  return db('stylist')
+    .insert(stylist, 'id')
+    .then(ids => {
+      const [id] = ids;
+      return findByStylistId(id);
+    });
 }
 
 async function addPost(post, stylist) {
