@@ -63,13 +63,13 @@ router.post('/register/user', (req, res) => {
   
       Users.add(user)
         .then(saved => {
-          res.status(201).json({message:'User created:', saved, stylist});
+          res.status(201).json(saved, user);
         })
-        .catch(error => {
-          res.status(500).json({message:'Error. Unable to add new user:', error});
+        .catch(err => {
+          res.status(500).json({message:'Unable to add new user:', err});
       });
     } else {
-      res.status(400).json({message:'Error. One or more fields may be incorrect:', err: validateResults.errors})
+      res.status(400).json({message:'One or more fields may be incorrect:', err: validateResults.errors})
     }
 });
 
