@@ -65,7 +65,7 @@ router.post('/:id/reviews', restricted, (req, res) => {
 
 
 //PUT
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', (req, res) => {
   const userData = req.body;
   const id = req.params.id;
 
