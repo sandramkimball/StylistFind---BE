@@ -9,7 +9,7 @@ module.exports = (req, res, next)=> {
         jwt.verify(token, secret, (err, decodedToken)=> {
             if(err){
                 console.log(err);
-                res.status(401).json({message: 'Error with webtoken. Token malformed.'}, )
+                res.status(401).json({message: 'Error with webtoken. Token malformed.', err})
             } else {
                 req.decodedJwt = decodedToken;
                 next();

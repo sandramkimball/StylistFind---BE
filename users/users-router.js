@@ -74,7 +74,7 @@ router.put('/:id', restricted, (req, res) => {
     res.status(201).json({ created: ids[0] });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to edit user information.' });
+    res.status(500).json({ message: 'Failed to edit user information.', err });
   });
 });
 
