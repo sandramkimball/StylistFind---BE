@@ -43,12 +43,14 @@ function findById(id) {
   return db('users')
     .select('*')
     .where({ id })
-    .first();
+    .first()
+    .join('bookmarks', 'users.id', '=', 'bookmarks.user_id')
+    .select('bookmarks.*');
 }
 
 function findReviewsById(id) {
   return db('reviews')
-    .join('users', 'reviews.user_id', '=', 'reviews.id')
+    .join('users', 'reviews.user_id', '=', 'users.id')
     .select('reviews.*', 'users.id as user')
     .where({ id })
 }

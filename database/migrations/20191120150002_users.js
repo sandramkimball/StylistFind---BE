@@ -104,11 +104,37 @@ exports.up = function(knex) {
             .onUpdate('CASCADE');
     })
 
+    .createTable('bookmarks', tbl=> {
+      tbl.increments().primary();
+      tbl
+        .integer('user_id')
+        .unsigned()
+        .notNullable()
+        .references('id')
+        .inTable('users')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      tbl
+        .integer('stylist_id')
+        .unsigned()
+        .references('id')
+        .inTable('stylists')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+      tbl
+        .integer('salon_id')
+        .unsigned()
+        .references('id')
+        .inTable('salons')
+        .onDelete('CASCADE')
+        .onUpdate('CASCADE');
+})
 
   };
   
   exports.down = function(knex) {
       return knex.schema
+      .dropTableIfExists('bookmarks')
       .dropTableIfExists('reviews')
       .dropTableIfExists('posts')
       .dropTableIfExists('users')

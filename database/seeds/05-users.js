@@ -10,14 +10,6 @@ exports.seed = function(knex) {
       profile_img: 'https://images.unsplash.com/photo-1509704215857-7ac19c9842b4?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
     },
     {
-      password: 'Maggie',
-      first_name: 'Maggie',
-      last_name: 'Mills',
-      email: 'maggie@gmail.com',
-      usertype: 'user',
-      profile_img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',  
-    },
-    {
       password: 'Stefano',
       first_name: 'Stefano',
       last_name: 'Stefan',

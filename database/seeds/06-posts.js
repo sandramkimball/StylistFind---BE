@@ -48,14 +48,39 @@ exports.seed = function(knex) {
         },
       
         {
-          date: '2018-11-15',
+          date: '2019-09-17',
           image: 'https://images.unsplash.com/photo-1522337094846-8a818192de1f?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
           stylist_id: 3,
         },
         {
-          date: '2018-11-15',
+          date: '2019-12-05',
           image: 'https://images.unsplash.com/photo-1497551060073-4c5ab6435f12?ixlib=rb-1.2.1&auto=format&fit=crop&w=400&q=60',
           stylist_id: 3,
+        },
+        {
+          date: '2015-11-15',
+          image: 'https://images.unsplash.com/photo-1481066717861-4775e000c88a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
+          stylist_id: 4,
+        },
+        {
+          date: '2018-04-10',
+          image: 'https://images.unsplash.com/photo-1523263685509-57c1d050d19b?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          stylist_id: 4,
+        },
+        {
+          date: '2018-11-15',
+          image: 'https://images.unsplash.com/photo-1541314053190-1db8c88dc05a?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          stylist_id: 4,
+        },
+        {
+          date: '2017-06-25',
+          image: 'https://images.unsplash.com/photo-1551726824-bbeab11db685?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          stylist_id: 4,
+        },
+        {
+          date: '2020-01-05',
+          image: 'https://images.unsplash.com/photo-1563339037-84fb4e623969?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',
+          stylist_id: 4,
         }
       ]);
 };

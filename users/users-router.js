@@ -49,6 +49,21 @@ router.get('/:id/reviews', (req, res) => {
     });
 });
 
+router.get('/:id/bookmarks', (req, res) => {
+  id = req.params.id;
+  return db
+    .select('bookmarks.*', 'u.*', 's.first_name' )
+    .from('bookmarks')
+    .where('bookmarks.user_id', '=', `${id}`)
+    .join('users as u', 'u.id', '=', 'bookmarks.user_id')
+    .join('stylists as s', 's.id', '=', 'bookmarks.stylist_id')
+    .then(bookmarks => { res.status(200).json(bookmarks) })
+    .catch(err=> {
+      console.log(err);
+      res.status(500).json({error: 'Error retrieving bookmarks.'})
+    });
+});
+
 
 //POST
 router.post('/:id/reviews', restricted, (req, res) => {

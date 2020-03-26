@@ -32,6 +32,15 @@ exports.seed = function(knex, Promise) {
           profile_img: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80',
           salon_id: 3,
         },
+        {
+          password: 'Maggie',
+          first_name: 'Maggie',
+          last_name: 'Mills',
+          email: 'maggie@gmail.com',
+          usertype: 'stylist',
+          bio: 'I specialize in wedding hair and makeup with 7yrs of experience. I am dedicated to making you look and as fabulous as you feel. Don\'t skip out on spoiling yourself on your important day!',
+          profile_img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',  
+        },
 
       ]);
 };
