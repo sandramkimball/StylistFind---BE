@@ -44,8 +44,6 @@ function findById(id) {
     .select('*')
     .where({ id })
     .first()
-    .join('bookmarks', 'users.id', '=', 'bookmarks.user_id')
-    .select('bookmarks.*');
 }
 
 function findReviewsById(id) {
