@@ -3,25 +3,6 @@ const Users = require('./users-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
-const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: './public/uploads/',
-  filename: function(req, file, cb){
-    cb(null, file.filename + '-' + Date.now().toISOString())
-  }
-})
-const upload = multer({storage: storage})
-
-function checkFileType(file, cb){
-  filetypes = /jpeg|jpg|png/;
-  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
-  const mimetype = filetypes.test(file.mimetype)
-  if(extname && mimetype){
-    return cb(null, true)
-  } else {
-    cb('You uploaded a file that is not an image.', false)
-  }
-}
 
 //GET
 router.get('/', (req, res) => {
@@ -96,6 +77,16 @@ router.post('/:id/reviews', restricted, (req, res) => {
   });
 });
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null, file.filename + '-' + Date.now().toISOString())
+  }
+})
+const upload = multer({storage: storage})
+
+
 //PUT
 router.put('/:id/upload', restricted, (req, res) => {
   const id = req.params.id;
@@ -116,6 +107,7 @@ router.put('/:id/upload', restricted, (req, res) => {
         })
       }
     }
+  })
 })
 
 router.put('/:id', (req, res) => {
