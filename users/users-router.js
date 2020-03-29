@@ -3,6 +3,25 @@ const Users = require('./users-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null, file.filename + '-' + Date.now().toISOString())
+  }
+})
+const upload = multer({storage: storage})
+
+function checkFileType(file, cb){
+  filetypes = /jpeg|jpg|png/;
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase())
+  const mimetype = filetypes.test(file.mimetype)
+  if(extname && mimetype){
+    return cb(null, true)
+  } else {
+    cb('You uploaded a file that is not an image.', false)
+  }
+}
 
 //GET
 router.get('/', (req, res) => {
@@ -67,8 +86,7 @@ router.get('/:id/bookmarks', (req, res) => {
 
 //POST
 router.post('/:id/reviews', restricted, (req, res) => {
-  const newReview = req.body;
-
+  const newReview = req.body
   db('reviews').insert(newReview)
   .then(ids => {
     res.status(201).json({ message: 'Your review was added.' });
@@ -78,8 +96,28 @@ router.post('/:id/reviews', restricted, (req, res) => {
   });
 });
 
-
 //PUT
+router.put('/:id/upload', restricted, (req, res) => {
+  const id = req.params.id;
+  upload(req, res, (err) => {
+    if (err){
+      res.render('err', {msg: err})
+    } 
+    else {
+      if (req.file == undefined){
+        res.status(500).json({message: 'No file selected'})
+      } else {
+        db('users').where({id}).update(req.file)
+        .then(ids => {
+          res.status(200).json({
+            msg: 'File uploaded',
+            file: `uploads/${req.file.filename}`
+          })
+        })
+      }
+    }
+})
+
 router.put('/:id', (req, res) => {
   const userData = req.body;
   const id = req.params.id;
