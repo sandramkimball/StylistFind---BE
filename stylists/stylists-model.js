@@ -15,7 +15,7 @@ module.exports = {
 
 //ADD
 async function addStylist(stylist) {
-  return db('stylist')
+  return db('stylists')
     .insert(stylist, 'id')
     .then(ids => {
       const [id] = ids;
