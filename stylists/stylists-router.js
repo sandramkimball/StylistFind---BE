@@ -18,8 +18,8 @@ const upload = multer({storage: storage})
 router.get('/', (req, res) => {
   Stylists
   .find()
-  .then(users => {
-    res.json(users);
+  .then(stylists => {
+    res.json(stylists);
   })
   .catch (err => {
     console.log(err);

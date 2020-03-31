@@ -4,7 +4,7 @@ const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
 const Stylists = require('../stylists/stylists-model.js');
 const { validateUser } = require('./users-helper.js');
-const { validateStylists } = require('./stylists-helper.js');
+const { validateStylist } = require('./stylists-helper.js');
 
 
 function getJwtToken(user){
