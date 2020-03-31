@@ -1,6 +1,6 @@
 
 exports.seed = function(knex) {
-  return knex('salons').del()
+  return knex('stylists').del()
   .then(function () {
     return knex('stylists').insert([
       {
