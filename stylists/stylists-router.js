@@ -73,7 +73,6 @@ router.get('/:id/posts', (req, res) => {
 });
 
 //POST
-
 router.post('/:id/posts', restricted, (req, res) => {
   const postData = req.body;
 
