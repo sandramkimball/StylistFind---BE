@@ -1,5 +1,5 @@
 
-exports.seed = function(knex, Promise) {
+exports.seed = function(knex) {
       return knex('stylists').insert([
         
         {
@@ -40,6 +40,7 @@ exports.seed = function(knex, Promise) {
           usertype: 'stylist',
           bio: 'I specialize in wedding hair and makeup with 7yrs of experience. I am dedicated to making you look and as fabulous as you feel. Don\'t skip out on spoiling yourself on your important day!',
           profile_img: 'https://images.unsplash.com/photo-1522337360788-8b13dee7a37e?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60',  
+          salon_id: 4,
         },
 
       ]);
