@@ -8,35 +8,32 @@ exports.seed = function(knex) {
           street_address: '3104 Bay Str.',
           zipcode: '31401',
           state: 'GA',
-          city: 'Savannah'
+          city: 'Savannah',
+          stylist_id: 1,
         },
         {
           salon: 'Lunatic Fringe',
           street_address: '666 Jefferson Str',
           zipcode: '83702',
           state: 'ID',
-          city: 'Boise'
+          city: 'Boise',
+          stylist_id: 2,
         },
         {
           salon: 'Stella\'s  Hair Parlor',
           street_address: '921 Grand Avenue',
           zipcode: '92121',
           state: 'CA',
-          city: 'Dallas'
+          city: 'Dallas',
+          stylist_id: 3,
         },
         {
           salon: 'Luma Salon and Spa',
           street_address: '921 Grand Avenue',
           zipcode: 'L6A 4N9',
           state: 'ON',
-          city: 'Toronto'
-        },
-        {
-          salon: 'Celebrity Salon',
-          street_address: '552 Squash Avenue',
-          zipcode: 'T5J 0N3',
-          state: 'AB',
-          city: 'Calgary'
+          city: 'Toronto',
+          stylist_id: 4,
         },
 
       ]);

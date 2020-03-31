@@ -50,7 +50,7 @@ router.get('/profile/:id', (req, res) => {
     .from('stylists')
     .where('stylists.id', '=', `${id}`) 
     .first()
-    .join('salons', 'stylists.salon_id', '=', 'salons.id' )
+    .join('salons', 'stylists.id', '=', 'salons.salon_id' )
     .then(stylist => {res.status(200).json(stylist)})
     .catch(err => {
       console.log(err);

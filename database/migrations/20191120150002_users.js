@@ -22,16 +22,6 @@ exports.up = function(knex) {
           .onUpdate('CASCADE');
     })
     
-    .createTable('salons', tbl=> {
-        tbl.increments().primary();
-        tbl.string('salon').notNullable();
-        tbl.string('street_address').notNullable();
-        tbl.string('city').notNullable();
-        tbl.string('zipcode').notNullable();
-        tbl.string('state').notNullable();
-        tbl.string('profile_img');
-    })
-
     .createTable('stylists', stylists=> {
         stylists.increments().primary();
         stylists.string('first_name', 128).notNullable();
@@ -41,15 +31,25 @@ exports.up = function(knex) {
         stylists.string('usertype').notNullable();
         stylists.string('profile_img');
         stylists.text('bio');
-        stylists
-              .integer('salon_id')
-              .unsigned()
-              .references('id')
-              .inTable('salons')
-              .onDelete('CASCADE')
-              .onUpdate('CASCADE');
     })
     
+    .createTable('salons', tbl=> {
+        tbl.increments().primary();
+        tbl.string('salon').notNullable();
+        tbl.string('street_address').notNullable();
+        tbl.string('city').notNullable();
+        tbl.string('zipcode').notNullable();
+        tbl.string('state').notNullable();
+        tbl
+            .integer('stylist_id')
+            .unsigned()
+            .notNullable()
+            .references('id')
+            .inTable('stylists')
+            .onDelete('CASCADE')
+            .onUpdate('CASCADE');
+    })
+
     .createTable('users', users=> {
         users.increments().primary();
         users.string('first_name', 128).notNullable();
@@ -138,8 +138,8 @@ exports.up = function(knex) {
       .dropTableIfExists('reviews')
       .dropTableIfExists('posts')
       .dropTableIfExists('users')
-      .dropTableIfExists('stylists')
       .dropTableIfExists('salons')
+      .dropTableIfExists('stylists')
       .dropTableIfExists('cities')
       .dropTableIfExists('countries')
   };
