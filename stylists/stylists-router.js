@@ -22,8 +22,7 @@ router.get('/', (req, res) => {
     res.json(stylists);
   })
   .catch (err => {
-    console.log(err);
-    res.status(500).json({message: 'Request failed to get stylists.'});
+    res.status(500).json({message: 'Request failed to get stylists.', err});
   });
 });
 

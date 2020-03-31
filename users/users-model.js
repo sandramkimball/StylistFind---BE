@@ -2,13 +2,13 @@ const db = require('../database/dbConfig.js');
 
 module.exports = {
   add,
-  addPost,
+  addReview,
   find,
   findBy,
   findById,
   findReviewsById,
   remove,
-  removePost,
+  removeReview,
 };
 
 //ADD
@@ -21,10 +21,10 @@ async function add(user) {
     });
 }
 
-async function addPost(post, user) {
-  const [id] = await db('posts')
-  .where('post.user_id', '=', `${user.id}`)
-  .insert(post, 'id');
+async function addReview(post, user) {
+  const [id] = await db('reviews')
+  .where('review.user_id', '=', `${user.id}`)
+  .insert(review, 'id');
 
   return findPostById(id);
 }
@@ -61,9 +61,9 @@ function remove(id) {
     .del();
 }
 
-function removePost(id) {
-  return db('posts')
-    .join('users', 'posts.user_id', '=', 'users.id')
+function removeReview(id) {
+  return db('reviews')
+    .join('users', 'reviews.user_id', '=', 'users.id')
     .where({ id })
     .del();
 }
