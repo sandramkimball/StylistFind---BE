@@ -3,6 +3,16 @@ const Stylists = require('./stylists-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null, file.filename + '-' + Date.now().toISOString())
+  }
+})
+const upload = multer({storage: storage})
+
+
 
 //GET
 router.get('/', (req, res) => {
@@ -79,7 +89,7 @@ router.post('/:id/posts', restricted, (req, res) => {
 
 
 //PUT
-router.put('/:id', restricted, (req, res) => {
+router.put('/:id', restricted,  (req, res) => {
   const userData = req.body;
   const id = req.params.id;
 
@@ -92,7 +102,7 @@ router.put('/:id', restricted, (req, res) => {
   });
 });
 
-router.put('/:id/posts/:id', restricted, (req, res) => {
+router.put('/:id/posts/:id', restricted, upload(), (req, res) => {
   const editedPost = req.body;
   const id = req.params.id;
 

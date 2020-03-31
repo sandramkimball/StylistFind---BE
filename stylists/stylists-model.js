@@ -36,7 +36,6 @@ async function addSalon(post, stylist) {
   const [id] = await db('salons')
   .where('post.stylist_id', '=', `${stylist.id}`)
   .insert(post, 'id');
-
   return findSalonById(id);
 }
 

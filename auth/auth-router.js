@@ -63,19 +63,20 @@ router.post('/register/user', (req, res) => {
   
       Users.add(user)
         .then(saved => {
-          res.status(201).json(saved, user);
+          res.status(201).json({message: 'User created', saved, user});
         })
         .catch(err => {
           res.status(500).json({message:'Unable to add new user:', err});
       });
-    } else {
+    } 
+    else {
       res.status(400).json({message:'One or more fields may be incorrect:', err: validateResults.errors})
     }
 });
 
 router.post('/register/stylist', (req, res) => {
   let stylist = req.body;
-  const validateResults = validateStylists(stylist);
+  const validateResults = validateStylist(stylist);
 
   if(validateResults.isSuccessful === true){
     const hash = bcrypt.hashSync(stylist.password, 10); // 2 ^ n
@@ -85,11 +86,12 @@ router.post('/register/stylist', (req, res) => {
       .then(saved => {
         res.status(201).json({message:'Stylist User created:', saved, stylist});
       })
-      .catch(error => {
-        res.status(500).json({message:'Error. Unable to add new user:', error});
+      .catch(err => {
+        res.status(500).json({message:'Unable to add new stylist:', err});
     });
-  } else {
-    res.status(400).json({message:'Error:', err: validateResults.errors})
+  } 
+  else {
+    res.status(400).json({message:'Unable to validate.', err: validateResults.errors})
   }
 });
 
@@ -99,8 +101,8 @@ router.post('/register/salon', (req, res) => {
     .then(saved => {
       res.status(201).json({message:'Salon profile created:', saved, salon});
     })
-    .catch(error => {
-      res.status(500).json({message:'Error. Unable to add new user:', error});
+    .catch(err => {
+      res.status(500).json({message:'Error. Unable to add new salon:', err});
   });
 });
 
