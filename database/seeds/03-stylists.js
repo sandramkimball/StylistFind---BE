@@ -3,7 +3,6 @@ exports.seed = function(knex, Promise) {
       return knex('stylists').insert([
         
         {
-          id: 1,
           password: 'Richie',
           first_name: 'Richie',
           last_name: 'Usman',
@@ -13,7 +12,6 @@ exports.seed = function(knex, Promise) {
           profile_img: 'https://images.unsplash.com/photo-1523532888648-532ebf887c74?ixlib=rb-1.2.1&auto=format&fit=crop&w=634&q=80'
         },
         {
-          id: 2, 
           password: 'Kat',
           first_name: 'Kat',
           last_name: 'Moon',
@@ -23,7 +21,6 @@ exports.seed = function(knex, Promise) {
           profile_img: 'https://images.unsplash.com/photo-1534445538923-ab38438550d2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
         },
         {
-          id: 3,
           password: 'Stella',
           first_name: 'Stella',
           last_name: 'Dragon',
@@ -33,7 +30,6 @@ exports.seed = function(knex, Promise) {
           profile_img: 'https://images.unsplash.com/photo-1492106087820-71f1a00d2b11?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=634&q=80'
         },
         {
-          id: 4,
           password: 'Maggie',
           first_name: 'Maggie',
           last_name: 'Mills',
