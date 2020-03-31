@@ -102,7 +102,7 @@ router.put('/:id', restricted,  (req, res) => {
   });
 });
 
-router.put('/:id/posts/:id', restricted, upload(), (req, res) => {
+router.put('/:id/posts/:id', restricted, upload.single(), (req, res) => {
   const editedPost = req.body;
   const id = req.params.id;
 

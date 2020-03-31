@@ -8,3 +8,5 @@ npx heroku run knex migrate:redo --verbose -a stylistfind-db
 npx heroku run knex migrate:up -a stylistfind-db
 
 npx heroku run knex seed:run -a stylistfind-db
+
+npx heroku logs --tail -a stylistfind-db
