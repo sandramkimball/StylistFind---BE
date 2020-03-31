@@ -44,7 +44,7 @@ function find() {
   return db('stylists')
   .select('*')
   .join('salons', 'salons.stylist_id', '=', 'stylists.id')
-  .first();
+
 }
 
 function findStylistBy(filter) {
