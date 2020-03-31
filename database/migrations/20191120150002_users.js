@@ -1,6 +1,5 @@
-exports.up = function(knex) {
-    return knex.schema
-    
+exports.up = function(knex, Promise) {
+    return knex.schema    
     .createTable('countries', tbl=> {
         tbl.increments().primary();
         tbl.string('country').notNullable();
@@ -131,7 +130,7 @@ exports.up = function(knex) {
 
   };
   
-  exports.down = function(knex) {
+  exports.down = function(knex, Promise) {
       return knex.schema
       .dropTableIfExists('bookmarks')
       .dropTableIfExists('reviews')
