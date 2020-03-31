@@ -128,7 +128,7 @@ exports.up = function(knex) {
         .inTable('salons')
         .onDelete('CASCADE')
         .onUpdate('CASCADE');
-})
+    })
 
   };
   
