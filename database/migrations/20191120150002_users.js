@@ -1,6 +1,5 @@
 exports.up = function(knex) {
     return knex.schema
-
     
     .createTable('countries', tbl=> {
         tbl.increments().primary();

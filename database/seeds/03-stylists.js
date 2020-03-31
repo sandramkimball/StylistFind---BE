@@ -1,7 +1,8 @@
 
-exports.seed = function(knex, Promise) {
+exports.seed = function(knex) {
+  return knex('salons').del()
+    .then(function () {
       return knex('stylists').insert([
-        
         {
           password: 'Richie',
           first_name: 'Richie',
@@ -40,4 +41,5 @@ exports.seed = function(knex, Promise) {
         },
 
       ]);
+    })
 };
