@@ -19,7 +19,7 @@ async function addStylist(stylist) {
     .insert(stylist, 'id')
     .then(ids => {
       const [id] = ids;
-      return findByStylistId(id);
+      return findStylistById(id);
     });
 }
 
@@ -48,9 +48,7 @@ function find() {
 }
 
 function findStylistBy(filter) {
-  return db('stylists')
-    .where(filter)
-    .first();
+  return db('stylists').where(filter).first();
 }
 
 function findByStylistId(id) {

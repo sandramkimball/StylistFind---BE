@@ -45,7 +45,7 @@ router.post('/login/stylists', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
-    return res.status(401).json({message: 'Server Error: Missing email or password.'})
+    return res.status(401).json({message: 'Missing email or password.'})
   }
     Stylist.findStylistBy({ email })
     .then(stylist => {
@@ -94,7 +94,7 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        res.status(201).json({message:'Stylist User created:', saved, stylist});
+        res.status(201).json({message:'Stylist user created:', saved, stylist});
       })
       .catch(err => {
         res.status(500).json({message:'Unable to add new stylist:', err});

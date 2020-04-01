@@ -25,11 +25,6 @@ function validateStylist(user){
         errors.push('Please add a email.')
     }
 
-    if(user.isStylist === true && user.salon === null && user.address === null){
-        errors.push('Please provide an address or salon. Your clients need to know where you are!')
-    }
-
-
     return {
         isSuccessful: errors.length > 0 ? false:true,
         errors
