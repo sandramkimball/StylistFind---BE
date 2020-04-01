@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 router.get('/:id', (req, res) => {
   id = req.params.id;
   Stylists
-  .findById(id)
+  .findStylistById(id)
   .then(user => {
     if (user) {
       res.json(user);
@@ -46,11 +46,9 @@ router.get('/:id', (req, res) => {
 router.get('/profile/:id', (req, res) => {
   id = req.params.id;
   return db
-    .select('*')
-    .from('stylists')
-    .where('stylists.id', '=', `${id}`) 
-    .first()
+    .findStylistById(id)
     .join('salons', 'stylists.id', '=', 'salons.salon_id' )
+    .join('posts', 'stylists.id', '=', 'posts.stylist_id' )
     .then(stylist => {res.status(200).json(stylist)})
     .catch(err => {
       console.log(err);

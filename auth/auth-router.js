@@ -22,7 +22,7 @@ function getJwtToken(user){
 }
 
 // LOGIN
-router.post('/login/users', (req, res) => {
+router.post('/login/user', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
@@ -41,7 +41,7 @@ router.post('/login/users', (req, res) => {
   });
 })
 
-router.post('/login/stylists', (req, res) => {
+router.post('/login/stylist', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
@@ -80,7 +80,7 @@ router.post('/register/user', (req, res) => {
     });
   } 
   else {
-    res.status(400).json({message:'One or more fields may be incorrect:', err: validateResults.errors})
+    res.status(400).json({message:'One or more fields may be incorrect.', err: validateResults.errors})
   }
 });
 
@@ -89,7 +89,7 @@ router.post('/register/stylist', (req, res) => {
   const validateResults = validateStylist(stylist);
 
   if(validateResults.isSuccessful === true){
-    const hash = bcrypt.hashSync(stylist.password, 10); // 2 ^ n
+    const hash = bcrypt.hashSync(stylist.password, 8); 
     stylist.password = hash;
 
     Stylists.addStylist(stylist)
@@ -101,7 +101,7 @@ router.post('/register/stylist', (req, res) => {
     });
   } 
   else {
-    res.status(400).json({message:'Unable to validate.', err: validateResults.errors})
+    res.status(400).json({message:'One or more fields may be incorrect.', err: validateResults.errors})
   }
 });
 

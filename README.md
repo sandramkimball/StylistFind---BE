@@ -1,9 +1,5 @@
 # StylistFind Backend Node Database
 
-
-
-## Table of Contents
-
 - [Welcome](#welcome)
 - [Routes](#routes)
 - [Tables](#tables)
@@ -16,45 +12,44 @@ This is a side project of mine that was inspired by a previous project. The orig
 ## Routes
 
 GET: <br>
-    /api/users 
-    /api/users/:id
-    /api/users/:id/reviews
-    /api/users/:id/reviews/:id
+    /users 
+    /users/:id
+    /users/:id/reviews
 
-    /api/stylists
-    /api/stylists/:id
-    /api/stylists/:id/posts
-    /api/stylists/:id/posts/:id
+    /stylists
+    /stylists/:id
+    /stylists/:id/posts
 
-    /api/search/:city
-    /api/search/:zipcode
-    /api/search/:salon
-    /api/search/:stylist
+    /search/:city
+    /search/:zipcode
+    /search/:salon
+    /search/:stylist
 
 
 POST:<br>
-    /auth/register
-    /auth/login
+    /auth/register/stylist
+    /auth/login/stylist
+    /stylists/:id/posts
 
-    /api/users/reviews
-
-    /api/stylists/posts
+    /auth/register/user
+    /auth/login/user
+    /users/:id/reviews
 
 
 PUT:<br>
-    /api/users/:id
-    /api/users/:id/reviews/:id
+    /users/:id
+    /users/:id/reviews/:id
     
-    /api/stylsits/:id
-    /api/stylsits/:id/posts/:id
+    /stylsits/:id
+    /stylsits/:id/posts/:id
 
 
 DELETE:<br>
-    /api/users/:id
-    /api/users/:id/reviews/:id
+    /users/:id
+    /users/:id/reviews/:id
 
-    /api/stylists/:id
-    /api/stylists/:id/posts/:id
+    /stylists/:id
+    /stylists/:id/posts/:id
 
 
 
@@ -64,14 +59,12 @@ DELETE:<br>
 | Column    | Type  | Required  | Key     | Unique  |
 |-----------|-------|-----------|---------|---------|
 | id        | inc   | yes       | primary |         |
-| username  | str   | yes       |         | Yes     |
 | first_name| str   | yes       |         |         |
 | last_name | str   | yes       |         |         |
 | password  | str   | yes       |         |         |
 | email     | str   | yes       |         | Yes     |
 | profile_img| str  |           |         |         |
 | bio       | text  |           |         |         |
-| salon_id  | str   | yes       |         |         |
 | usertype  | str   | yes       |         |         |
 
 
@@ -79,11 +72,11 @@ DELETE:<br>
 | Column    | Type  | Required  | Key     | Unique  |
 |-----------|-------|-----------|---------|---------|
 | id        | inc   | yes       | primary |         |
-| username  | str   | yes       |         | Yes     |
-| name      | str   | yes       |         |         |
+| first_name| str   | yes       |         |         |
+| last_name | str   | yes       |         |         |
 | password  | str   | yes       |         |         |
 | email     | str   | yes       |         | Yes     |
-| usertype  | *     | yes       |         |         |
+| usertype  | str   | yes       |         |         |
 | profile_img| str  |           |         |         |
 
 ### Salons
@@ -91,28 +84,11 @@ DELETE:<br>
 |-----------|-------|-----------|---------|
 | id        | int   | yes       | primary | 
 | salon     | str   | yes       |         | 
-| street_address | str   | yes       |         | 
-| city      | str   | yes       | foreign |
-| zipcode   | str   | yes       | foreign |
-| state     | str   | yes       | foreign |
-| profile_img| str  |           |         |
-
-### Cities
-| Column    | Type  | Required  | Key     |
-|-----------|-------|-----------|---------|
-| id        | int   | yes       | primary |
+| street_address | str | yes    |         | 
 | city      | str   | yes       |         |
-| zipcode   | str   | yes       | foreign |
-| state     | str   | yes       | foreign |
-| country_id| int   | yes       | foreign |
-
-country_id REFERENCES id IN TABLE country </br>
-
-### Countries
-| Column    | Type  | Required  | Key     |
-|-----------|-------|-----------|---------|
-| id        | int   | yes       | primary |
-| name      | str   | yes       |         |
+| zipcode   | str   | yes       |         |
+| state     | str   | yes       |         |
+| stylist_id | str  | yes       | foreign |
 
 ### Stylist Posts
 | Column    | Type  | Required  | Key     |

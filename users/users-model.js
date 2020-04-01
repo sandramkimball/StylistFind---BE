@@ -6,7 +6,7 @@ module.exports = {
   find,
   findBy,
   findById,
-  findReviewsById,
+  findReviewById,
   remove,
   removeReview,
 };
@@ -21,12 +21,12 @@ async function add(user) {
     });
 }
 
-async function addReview(post, user) {
+async function addReview(review, user) {
   const [id] = await db('reviews')
   .where('review.user_id', '=', `${user.id}`)
   .insert(review, 'id');
 
-  return findPostById(id);
+  return findReviewById(id);
 }
 
 
@@ -46,7 +46,7 @@ function findById(id) {
     .first()
 }
 
-function findReviewsById(id) {
+function findReviewById(id) {
   return db('reviews')
     .join('users', 'reviews.user_id', '=', 'users.id')
     .select('reviews.*', 'users.id as user')
