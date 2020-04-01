@@ -64,24 +64,24 @@ router.post('/login/stylists', (req, res) => {
 
 // REGISTER
 router.post('/register/user', (req, res) => {
-    let user = req.body;
-    const validateResults = validateUser(user);
-  
-    if(validateResults.isSuccessful === true){
-      const hash = bcrypt.hashSync(user.password, 8); 
-      user.password = hash;
-  
-      Users.add(user)
-        .then(saved => {
-          res.status(201).json({message: 'User created', saved, user});
-        })
-        .catch(err => {
-          res.status(500).json({message:'Unable to add new user:', err});
-      });
-    } 
-    else {
-      res.status(400).json({message:'One or more fields may be incorrect:', err: validateResults.errors})
-    }
+  let user = req.body;
+  const validateResults = validateUser(user);
+
+  if(validateResults.isSuccessful === true){
+    const hash = bcrypt.hashSync(user.password, 8); 
+    user.password = hash;
+
+    Users.add(user)
+      .then(saved => {
+        res.status(201).json({message: 'User created', saved, user});
+      })
+      .catch(err => {
+        res.status(500).json({message:'Unable to add new user:', err});
+    });
+  } 
+  else {
+    res.status(400).json({message:'One or more fields may be incorrect:', err: validateResults.errors})
+  }
 });
 
 router.post('/register/stylist', (req, res) => {
