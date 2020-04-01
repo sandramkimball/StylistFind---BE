@@ -28,8 +28,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   id = req.params.id;
-  Stylists
-  .findStylistById(id)
+  Stylists.findStylistById(id)
   .then(user => {
     if (user) {
       res.json(user);

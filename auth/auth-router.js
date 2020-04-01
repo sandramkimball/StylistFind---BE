@@ -47,7 +47,7 @@ router.post('/login/stylist', (req, res) => {
   if(!email || !password){
     return res.status(401).json({message: 'Missing email or password.'})
   }
-    Stylist.findStylistBy({ email })
+    Stylists.findStylistBy({ email })
     .then(stylist => {
       if (stylist && bcrypt.compareSync(password, stylist.password)) {
         const token = getJwtToken(stylist);
@@ -87,17 +87,22 @@ router.post('/register/user', (req, res) => {
 router.post('/register/stylist', (req, res) => {
   let stylist = req.body;
 
-  const hash = bcrypt.hashSync(stylist.password, 8); 
-  stylist.password = hash;
+  try {
+    const hash = bcrypt.hashSync(stylist.password, 8); 
+    stylist.password = hash;
 
-  Stylists.addStylist(stylist)
-    .then(saved => {
-      res.status(201).json({message:'New stylist created.', saved, stylist});
+    Stylists.addStylist(stylist)
+      .then(saved => {
+        res.status(201).json({message:'New stylist created.', saved, stylist});
+      })
+      .catch(err => {
+        res.status(500).json({message:'Request failed to add new stylist.', err});
     })
-    .catch(err => {
-      res.status(500).json({message:'Request failed to add new stylist.', err});
-  });
+  }
   
+  catch {
+    res.status(500).json({message:'Request try failed.', err});
+  }
 });
 
 router.post('/register/salon', (req, res) => {
