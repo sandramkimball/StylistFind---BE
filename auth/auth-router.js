@@ -86,23 +86,18 @@ router.post('/register/user', (req, res) => {
 
 router.post('/register/stylist', (req, res) => {
   let stylist = req.body;
-  const validateResults = validateStylist(stylist);
 
-  if(validateResults.isSuccessful === true){
-    const hash = bcrypt.hashSync(stylist.password, 8); 
-    stylist.password = hash;
+  const hash = bcrypt.hashSync(stylist.password, 8); 
+  stylist.password = hash;
 
-    Stylists.addStylist(stylist)
-      .then(saved => {
-        res.status(201).json({message:'Stylist user created.', saved, stylist});
-      })
-      .catch(err => {
-        res.status(500).json({message:'Request failed to add new stylist.', err});
-    });
-  } 
-  else {
-    res.status(400).json({message:'One or more fields may be incorrect.', err: validateResults.errors})
-  }
+  Stylists.addStylist(stylist)
+    .then(saved => {
+      res.status(201).json({message:'New stylist created.', saved, stylist});
+    })
+    .catch(err => {
+      res.status(500).json({message:'Request failed to add new stylist.', err});
+  });
+  
 });
 
 router.post('/register/salon', (req, res) => {
