@@ -28,27 +28,29 @@ router.post('/login', (req, res) => {
     return res.status(401).json({message: 'Server Error: Missing email or password.'})
   }
 
-  Users.findBy({ email })
-  .then(user => {
-    if (user && bcrypt.compareSync(password, user.password)) {
-      const token = getJwtToken(user);   
-      res.status(200).json({message: `Welcome back, ${user.first_name}.`, token, user});
-
-    } else {
-      Stylist.findStylistBy({ email })
-      .then(stylist => {
-        if (stylist && bcrypt.compareSync(password, stylist.password)) {
-          const token = getJwtToken(stylist);
-          res.status(200).json({message: `Welcome back, ${stylist.first_name}.`, token, stylist});
-        } else {
-          res.status(401).json({ message: 'Email or password is incorrect.' });
-        }
-      })
-    }
-  })
-  .catch(error => {
-    res.status(500).json({ message: 'Could not find user.', error });
-  });
+  try{
+    Users.findBy({ email })
+    .then(user => {
+      if (user && bcrypt.compareSync(password, user.password)) {
+        const token = getJwtToken(user);   
+        res.status(200).json({message: `Welcome back, ${user.first_name}.`, token, user});
+      } 
+    })
+  }
+  catch{
+    Stylist.findStylistBy({ email })
+    .then(stylist => {
+      if (stylist && bcrypt.compareSync(password, stylist.password)) {
+        const token = getJwtToken(stylist);
+        res.status(200).json({message: `Welcome back, ${stylist.first_name}.`, token, stylist});
+      } else {
+        res.status(401).json({ message: 'Email or password is incorrect.' });
+      }
+    })
+    .catch(error => {
+      res.status(500).json({ message: 'Could not find user.', error });
+    });
+  }
 });
 
 
