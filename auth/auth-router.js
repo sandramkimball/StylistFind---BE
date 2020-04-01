@@ -94,10 +94,10 @@ router.post('/register/stylist', (req, res) => {
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        res.status(201).json({message:'Stylist user created:', saved, stylist});
+        res.status(201).json({message:'Stylist user created.', saved, stylist});
       })
       .catch(err => {
-        res.status(500).json({message:'Unable to add new stylist:', err});
+        res.status(500).json({message:'Request failed to add new stylist.', err});
     });
   } 
   else {

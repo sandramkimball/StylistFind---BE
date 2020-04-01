@@ -37,7 +37,7 @@ exports.up = function(knex, Promise) {
       users.string('last_name', 128).notNullable();
       users.string('password', 128).notNullable();
       users.string('email').notNullable().unique();
-      users.string('profile_img');
+      users.binary('profile_img');
       users.string('usertype').notNullable();
     })
     
@@ -77,7 +77,7 @@ exports.up = function(knex, Promise) {
       tbl.increments().primary();
       tbl.timestamp('date').defaultTo(knex.fn.now());
       tbl.text('review');      
-      tbl.string('image');
+      tbl.binary('image');
       tbl
         .integer('user_id')
         .unsigned()

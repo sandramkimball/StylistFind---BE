@@ -6,7 +6,7 @@ module.exports = {
   addSalon,
   find,
   findStylistBy,
-  findByStylistId,
+  findByStylistById,
   findPostById,
   findSalonById,
   remove,
@@ -51,7 +51,7 @@ function findStylistBy(filter) {
   return db('stylists').where(filter).first();
 }
 
-function findByStylistId(id) {
+function findByStylistById(id) {
   return db('stylists')
     .select('*')
     .where({id}) 
