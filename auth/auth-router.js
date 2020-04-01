@@ -21,23 +21,32 @@ function getJwtToken(user){
   return jwt.sign(payload, secret, options);
 }
 
-router.post('/login', (req, res) => {
+// LOGIN
+router.post('/login/users', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
     return res.status(401).json({message: 'Server Error: Missing email or password.'})
   }
 
-  try{
-    Users.findBy({ email })
-    .then(user => {
-      if (user && bcrypt.compareSync(password, user.password)) {
-        const token = getJwtToken(user);   
-        res.status(200).json({message: `Welcome back, ${user.first_name}.`, token, user});
-      } 
-    })
+  Users.findBy({ email })
+  .then(user => {
+    if (user && bcrypt.compareSync(password, user.password)) {
+      const token = getJwtToken(user);   
+      res.status(200).json({message: `Welcome back, ${user.first_name}.`, token, user});
+    } 
+  })
+  .catch(error => {
+    res.status(500).json({ message: 'Could not find user.', error });
+  });
+})
+
+router.post('/login/stylists', (req, res) => {
+  let { email, password } = req.body;
+
+  if(!email || !password){
+    return res.status(401).json({message: 'Server Error: Missing email or password.'})
   }
-  catch{
     Stylist.findStylistBy({ email })
     .then(stylist => {
       if (stylist && bcrypt.compareSync(password, stylist.password)) {
@@ -50,7 +59,6 @@ router.post('/login', (req, res) => {
     .catch(error => {
       res.status(500).json({ message: 'Could not find user.', error });
     });
-  }
 });
 
 
