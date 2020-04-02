@@ -21,7 +21,7 @@ router.get('/posts',  (req, res) => {
   return db
   .select('*')
   .from('posts')
-  .join('stylists', 'posts.stylist_id', '=', `stylists.id`)
+  // .join('stylists', 'posts.stylist_id', '=', `stylists.id`)
   .then(posts => {
     res.status(200).json(posts)
   })
