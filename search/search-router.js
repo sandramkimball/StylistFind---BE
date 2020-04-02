@@ -5,12 +5,12 @@ const db = require('../database/dbConfig.js');
 
 router.get('/',  (req, res) => {
     db
-    .select('*')
-    .from('salons')
-    .join('stylists', 'salons.id', '=', `stylists.salon_id`)
-    .join('cities', 'salons.zipcode', '=', `cities.zipcode`)
-    .then(salons => {
-      res.status(200).json(salons)
+    .select('stylists.*', 'posts.*')
+    .from('stylists')
+    .join('salons', 'salons.stylist_id', '=', `stylists.id`)
+    .join('posts', 'posts.stylist_id', '=', 'stylists.id')
+    .then(stylists => {
+      res.status(200).json(stylists)
     })
       .catch(err=> {
         console.log(err);
