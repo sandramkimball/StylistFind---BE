@@ -5,7 +5,7 @@ const db = require('../database/dbConfig.js');
 
 router.get('/',  (req, res) => {
     db
-    .select('stylists.*', 'posts.*')
+    .select('*')
     .from('stylists')
     .join('salons', 'salons.stylist_id', '=', `stylists.id`)
     .join('posts', 'posts.stylist_id', '=', 'stylists.id')
@@ -23,8 +23,6 @@ router.get('/posts',  (req, res) => {
   .select('*')
   .from('posts')
   .join('stylists', 'stylist.id', '=', `posts.stylist_id`)
-  .join('users', 'users.id', '=', `posts.user_id`)
-  .orderBy('reviews.date', 'desc')
   .then(posts => {
     res.status(200).json(posts)
   })
@@ -40,7 +38,6 @@ router.get('/reviews',  (req, res) => {
   .from('reviews')
   .join('stylists', `reviews.stylist_id`, '=', 'stylists.id' )
   .join('users', `reviews.user_id`, '=','users.id' )
-  .orderBy('reviews.date', 'desc')
   .then(reviews => {
     res.status(200).json(reviews)
   })
