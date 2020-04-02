@@ -6,9 +6,8 @@ const db = require('../database/dbConfig.js');
 router.get('/',  (req, res) => {
     db
     .select('*')
-    .from('stylists')
-    .join('salons', 'salons.stylist_id', '=', `stylists.id`)
-    .join('posts', 'posts.stylist_id', '=', 'stylists.id')
+    .from('salons')
+    .join('stylists', 'salons.stylist_id', '=', `stylists.id`)
     .then(stylists => {
       res.status(200).json(stylists)
     })
