@@ -19,7 +19,7 @@ router.get('/',  (req, res) => {
 
 router.get('/posts',  (req, res) => {
   return db
-  .select('*', 'stylists.first_name')
+  .select('posts.*', 'salons.*', 'stylists.first_name', 'stylists.last_name','stylists.id')
   .from('posts')
   .join('stylists', 'posts.stylist_id', '=', `stylists.id`)
   .join('salons', 'posts.stylist_id', '=', `salons.stylist_id`)
