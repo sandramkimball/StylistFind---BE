@@ -42,16 +42,13 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.get('/profile/:id', (req, res) => {
+router.get('/:id/salon', (req, res) => {
   id = req.params.id;
   return db
-    .findStylistById(id)
-    .join('salons', 'stylists.id', '=', 'salons.salon_id' )
-    .join('posts', 'stylists.id', '=', 'posts.stylist_id' )
-    .then(stylist => {res.status(200).json(stylist)})
+    .findSalonById(id)
+    .then(salon => {res.status(200).json(salon)})
     .catch(err => {
-      console.log(err);
-      res.status(500).json({ message: `Could not find stylist with id ${id}.`})
+      res.status(500).json({ message: `Could not find salon with id ${id}.`})
     });
 });
 
@@ -86,10 +83,10 @@ router.post('/:id/posts', restricted, (req, res) => {
 
 //PUT
 router.put('/:id', restricted,  (req, res) => {
-  const userData = req.body;
+  const stylistData = req.body;
   const id = req.params.id;
 
-  db('stylists').where({id}).update(userData)
+  db('stylists').where({id}).update(stylistData)
   .then(ids => {
     res.status(201).json({ created: ids[0] });
   })
@@ -97,6 +94,20 @@ router.put('/:id', restricted,  (req, res) => {
     res.status(500).json({ message: 'Failed to edit user information.' });
   });
 });
+
+router.put('/:id/salon', restricted,  (req, res) => {
+  const salonData = req.body;
+  const id = req.params.id;
+
+  db('salons').where({id}).update(salonData)
+  .then(ids => {
+    res.status(201).json({ created: ids[0] });
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to edit user information.' });
+  });
+});
+
 
 router.put('/:id/posts/:id', restricted, upload.single(), (req, res) => {
   const editedPost = req.body;
