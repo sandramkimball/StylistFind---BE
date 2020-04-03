@@ -31,11 +31,13 @@ async function addPost(post, stylist) {
   return findPostById(id);
 }
 
-async function addSalon(post, stylist) {
-  const [id] = await db('salons')
-  .where('salon.stylist_id', '=', `${stylist.id}`)
-  .insert(post, 'id');
-  return findSalonById(id);
+async function addSalon(salon) {
+  return db('salons')
+    .insert(salon, 'id')
+    .then(ids => {
+      const [id] = ids;
+      return findSalonById(id);
+    });
 }
 
 

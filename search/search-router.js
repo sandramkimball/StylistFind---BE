@@ -33,10 +33,12 @@ router.get('/posts',  (req, res) => {
 });
 
 router.get('/reviews',  (req, res) => {
+  id = req.params.id;
   return db
   .select('*', 'stylists.first_name')
   .from('reviews')
-  .join('stylists', `reviews.stylist_id`, '=', 'stylists.id' )
+  .where('reviews.stylist_id', '=', `${id}`)
+  .join('stylists',`${id}`, '=', 'stylists.id' )
   .join('users', `reviews.user_id`, '=','users.id' )
   .then(reviews => {
     res.status(200).json(reviews)
