@@ -32,23 +32,6 @@ router.get('/posts',  (req, res) => {
     });
 });
 
-router.get('/reviews',  (req, res) => {
-  id = req.params.id;
-  return db
-  .select('*', 'stylists.first_name')
-  .from('reviews')
-  .where('reviews.stylist_id', '=', `${id}`)
-  .join('stylists',`${id}`, '=', 'stylists.id' )
-  .join('users', `reviews.user_id`, '=','users.id' )
-  .then(reviews => {
-    res.status(200).json(reviews)
-  })
-    .catch(err=> {
-      console.log(err);
-      res.status(500).json({error: 'Error retrieving reviews.', error})
-    });
-});
-
 
 module.exports = router;
 

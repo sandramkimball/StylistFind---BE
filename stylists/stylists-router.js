@@ -66,6 +66,21 @@ router.get('/:id/posts', (req, res) => {
     });
 });
 
+router.get('/:id/reviews', (req, res) => {
+  id = req.params.id;
+  return db
+    .select('reviews.*', 'users.first_name', 'stylist.first_name')
+    .from('reviews')
+    .where('reviews.user_id', '=', `${id}`)
+    .join('users', 'users.id', '=', 'reviews.user_id')
+    .join('stylists', 'stylists.id', '=', 'reviews.stylist_id')
+    .then(reviews => { res.status(200).json(reviews) })
+    .catch(err=> {
+      console.log(err);
+      res.status(500).json({error: 'Error retrieving reviews.'})
+    });
+});
+
 
 //POST
 router.post('/:id/posts', restricted, (req, res) => {
