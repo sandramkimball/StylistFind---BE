@@ -70,8 +70,7 @@ function findPostById(id) {
 
 function findSalonById(id) {
   return db('salons')
-    .join('stylists', 'salons.stylist_id', '=', 'stylists.id')
-    .select('salons.*', 'stylists.id as stylist')
+    .select('*')
     .where({ id })
     .first();
 }
