@@ -3,6 +3,7 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
 const Stylists = require('../stylists/stylists-model.js');
+const Salons = require('../stylists/stylists-model.js');
 const { validateUser } = require('./users-helper.js');
 const { validateStylist } = require('./stylists-helper.js');
 
@@ -107,12 +108,12 @@ router.post('/register/stylist', (req, res) => {
 
 router.post('/register/salon', (req, res) => {
   let salon = req.body;
-    Salons.addSalon(salon)
-    .then(saved => {
-      res.status(201).json({message:'Salon profile created:', saved, salon});
-    })
-    .catch(err => {
-      res.status(500).json({message:'Error. Unable to add new salon:', err});
+  Salons.addSalon(salon)
+  .then(saved => {
+    res.status(201).json({message:'Salon profile created:', saved, salon});
+  })
+  .catch(err => {
+    res.status(500).json({message:'Error. Unable to add new salon:', err});
   });
 });
 
