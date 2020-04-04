@@ -72,7 +72,7 @@ router.get('/:id/reviews', (req, res) => {
     .select(
       'reviews.*', 
       'users.first_name as user_first', 
-      'users.user_profile_img', 
+      'users.profile_img', 
       'stylists.first_name as stylist_first', 
       'stylists.last_name as stylist_last',
     )
