@@ -75,12 +75,11 @@ router.get('/:id/reviews', (req, res) => {
       'users.user_profile_img', 
       'stylists.first_name as stylist_first', 
       'stylists.last_name as stylist_last',
-      'salons.salon')
+    )
     .from('reviews')
     .where('reviews.stylist_id', '=', `${id}`)
     .join('users', 'users.id', '=', 'reviews.user_id')
     .join('stylists', 'stylists.id', '=', 'reviews.stylist_id')
-    .join('salons', 'reviews.stylist_id', '=', 'salons.stylist_id')
     .then(reviews => { res.status(200).json(reviews) })
     .catch(err=> {
       console.log(err);
