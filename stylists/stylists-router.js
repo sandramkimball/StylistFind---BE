@@ -69,11 +69,18 @@ router.get('/:id/posts', (req, res) => {
 router.get('/:id/reviews', (req, res) => {
   id = req.params.id;
   return db
-    .select('reviews.*', 'users.first_name', 'users.profile_img', 'stylists.first_name')
+    .select(
+      'reviews.*', 
+      'users.first_name as user_name', 
+      'users.user_profile_img', 
+      'stylists.first_name as stylist_first_name', 
+      'stylists.last_name as stylist_last_name',
+      'salons.salon')
     .from('reviews')
     .where('reviews.stylist_id', '=', `${id}`)
     .join('users', 'users.id', '=', 'reviews.user_id')
     .join('stylists', 'stylists.id', '=', 'reviews.stylist_id')
+    .join('salons', 'stylists.id', '=', 'salons.stylist_id')
     .then(reviews => { res.status(200).json(reviews) })
     .catch(err=> {
       console.log(err);
