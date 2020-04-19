@@ -16,7 +16,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
   id = req.params.id;
   Users
   .findById(id)
@@ -33,7 +33,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.get('/:id/reviews', (req, res) => {
+router.get('/:id/reviews', restricted, (req, res) => {
   id = req.params.id;
   return db
     .select(
@@ -55,7 +55,7 @@ router.get('/:id/reviews', (req, res) => {
     });
 });
 
-router.get('/:id/bookmarks', (req, res) => {
+router.get('/:id/bookmarks', restricted, (req, res) => {
   id = req.params.id;
   return db
     .select('bookmarks.*', 'u.*', 's.first_name' )
@@ -116,7 +116,7 @@ router.put('/:id/upload', restricted, (req, res) => {
   })
 })
 
-router.put('/:id', (req, res) => {
+router.put('/:id', restricted, (req, res) => {
   const userData = req.body;
   const id = req.params.id;
 

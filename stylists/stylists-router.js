@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
   id = req.params.id;
   Stylists.findStylistById(id)
   .then(user => {
@@ -42,7 +42,7 @@ router.get('/:id', (req, res) => {
   });
 });
 
-router.get('/:id/salon', (req, res) => {
+router.get('/:id/salon', restricted, (req, res) => {
   id = req.params.id;
   return db
     .findSalonById(id)
@@ -52,7 +52,7 @@ router.get('/:id/salon', (req, res) => {
     });
 });
 
-router.get('/:id/posts', (req, res) => {
+router.get('/:id/posts', restricted, (req, res) => {
   id = req.params.id;
   return db
     .select('*' )
@@ -67,7 +67,7 @@ router.get('/:id/posts', (req, res) => {
 });
 
 router.get('/:id/reviews', (req, res) => {
-  id = req.params.id;
+  id = req.params.id
   return db
     .select(
       'reviews.*', 
@@ -81,10 +81,7 @@ router.get('/:id/reviews', (req, res) => {
     .join('users', 'users.id', '=', 'reviews.user_id')
     .join('stylists', 'stylists.id', '=', 'reviews.stylist_id')
     .then(reviews => { res.status(200).json(reviews) })
-    .catch(err=> {
-      console.log(err);
-      res.status(500).json({error: 'Error retrieving reviews.'})
-    });
+    .catch(err=> {res.status(500).json({error: 'Request failed to retrieve reviews.', err}) })
 });
 
 
