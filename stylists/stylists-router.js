@@ -68,7 +68,7 @@ router.get('/:id/salon', (req, res) => {
     });
 });
 
-router.get('/:id/posts', restricted, (req, res) => {
+router.get('/:id/posts', (req, res) => {
   id = req.params.id;
   return db
     .select('*' )
@@ -102,7 +102,7 @@ router.get('/:id/reviews', (req, res) => {
 
 
 //POST
-router.post('/:id/posts', (req, res) => {
+router.post('/:id/posts', restricted, (req, res) => {
   const postData = req.body;
 
   db('posts').insert(postData)
