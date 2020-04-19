@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', (req, res) => {
+router.get('/:id', restricted, (req, res) => {
   id = req.params.id;
   Stylists.findStylistById(id)
   .then(user => {
