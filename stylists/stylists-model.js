@@ -7,6 +7,7 @@ module.exports = {
   find,
   findStylistBy,
   findStylistById,
+  findStylistByIdPublic,
   findPostById,
   findSalonById,
   remove,
@@ -56,6 +57,21 @@ function findStylistBy(filter) {
 function findStylistById(id) {
   return db('stylists')
     .select('*')
+    .where({id}) 
+    .first();
+}
+
+function findStylistByIdPublic(id) {
+  return db('stylists')
+    .select(
+      'stylist.id',
+      'stylist.first_name',
+      'stylist.last_name',
+      'stylist.email',
+      'stylist.usertype',
+      'stylist.profile_img',
+      'stylist.bio',
+    )
     .where({id}) 
     .first();
 }

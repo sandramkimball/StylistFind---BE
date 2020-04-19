@@ -26,7 +26,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.get('/:id', restricted, (req, res) => {
+router.get('/:id', (req, res) => {
   id = req.params.id;
   Stylists.findStylistById(id)
   .then(user => {
@@ -42,7 +42,23 @@ router.get('/:id', restricted, (req, res) => {
   });
 });
 
-router.get('/:id/salon', restricted, (req, res) => {
+router.get('/public/:id', (req, res) => {
+  id = req.params.id;
+  Stylists.findStylistByIdPublic(id)
+  .then(user => {
+    if (user) {
+      res.json(user);
+    } else {
+      res.status(404).json({ message: 'Could not find stylist with given id.' })
+    }
+  })
+  .catch(err => {
+    console.log(err);
+    res.status(500).json({ message: 'Failed to get stylist by id' });
+  });
+});
+
+router.get('/:id/salon', (req, res) => {
   id = req.params.id;
   return db
     .findSalonById(id)
