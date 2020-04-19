@@ -102,7 +102,7 @@ router.get('/:id/reviews', (req, res) => {
 
 
 //POST
-router.post('/:id/posts', restricted, (req, res) => {
+router.post('/:id/posts', (req, res) => {
   const postData = req.body;
 
   db('posts').insert(postData)
