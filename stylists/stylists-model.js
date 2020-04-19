@@ -64,13 +64,13 @@ function findStylistById(id) {
 function findStylistByIdPublic(id) {
   return db('stylists')
     .select(
-      'stylist.id',
-      'stylist.first_name',
-      'stylist.last_name',
-      'stylist.email',
-      'stylist.usertype',
-      'stylist.profile_img',
-      'stylist.bio',
+      'id',
+      'first_name',
+      'last_name',
+      'email',
+      'usertype',
+      'profile_img',
+      'bio',
     )
     .where({id}) 
     .first();
