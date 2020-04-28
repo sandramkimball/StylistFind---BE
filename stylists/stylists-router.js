@@ -3,16 +3,6 @@ const Stylists = require('./stylists-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
 
-const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: './public/uploads/',
-  filename: function(req, file, cb){
-    cb(null, file.filename + '-' + Date.now().toISOString())
-  }
-})
-const upload = multer({storage: storage})
-
-
 
 //GET
 router.get('/', (req, res) => {

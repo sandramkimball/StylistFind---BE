@@ -126,34 +126,34 @@ router.delete('/:id/reviews/:id', restricted, (req, res) => {
 
 module.exports = router;
 
-
-const multer = require('multer')
-const storage = multer.diskStorage({
-  destination: './public/uploads/',
-  filename: function(req, file, cb){
-    cb(null, file.filename + '-' + Date.now().toISOString())
-  }
-})
-const upload = multer({storage: storage})
 // this is a test api for images
-router.put('/:id/upload', multer(), (req, res) => {
-  const id = req.params.id;
-  upload(req, res, (err) => {
-    if (err){
-      res.render('err', {msg: err})
-    } 
-    else {
-      if (req.file == undefined){
-        res.status(500).json({message: 'No file selected'})
-      } else {
-        db('users').where({id}).update(req.file)
-        .then(ids => {
-          res.status(200).json({
-            msg: 'File uploaded',
-            file: `uploads/${req.file.filename}`
-          })
-        })
-      }
-    }
-  })
-})
+// const multer = require('multer')
+// const storage = multer.diskStorage({
+//   destination: './public/uploads/',
+//   filename: function(req, file, cb){
+//     cb(null, file.filename + '-' + Date.now().toISOString())
+//   }
+// })
+// const upload = multer({storage: storage})
+
+// router.put('/:id/upload', (req, res) => {
+//   const id = req.params.id;
+//   upload(req, res, (err) => {
+//     if (err){
+//       res.render('err', {msg: err})
+//     } 
+//     else {
+//       if (req.file == undefined){
+//         res.status(500).json({message: 'No file selected'})
+//       } else {
+//         db('users').where({id}).update(req.file)
+//         .then(ids => {
+//           res.status(200).json({
+//             msg: 'File uploaded',
+//             file: `uploads/${req.file.filename}`
+//           })
+//         })
+//       }
+//     }
+//   })
+// })
