@@ -27,7 +27,7 @@ router.post('/login/user', (req, res) => {
   let { email, password } = req.body;
 
   if(!email || !password){
-    return res.status(401).json({message: 'Server Error: Missing email or password.'})
+    return res.status(401).json({message: 'Missing email or password.'})
   }
 
   Users.findBy({ email })
@@ -35,6 +35,8 @@ router.post('/login/user', (req, res) => {
     if (user && bcrypt.compareSync(password, user.password)) {
       const token = getJwtToken(user);   
       res.status(200).json({message: `Welcome back, ${user.first_name}.`, token, user});
+    } else {
+      res.status(401).json({ message: 'Email or password is incorrect.' });
     } 
   })
   .catch(error => {
@@ -74,7 +76,7 @@ router.post('/register/user', (req, res) => {
 
     Users.add(user)
       .then(saved => {
-        res.status(201).json({message: 'User created', saved, user});
+        res.status(201).json({message: 'User profile created', saved, user});
       })
       .catch(err => {
         res.status(500).json({message:'Unable to add new user:', err});
@@ -87,22 +89,22 @@ router.post('/register/user', (req, res) => {
 
 router.post('/register/stylist', (req, res) => {
   let stylist = req.body;
+  const validateResults = validateStylist(stylist);
 
-  try {
+  if(validateResults.isSuccessful === true){
     const hash = bcrypt.hashSync(stylist.password, 8); 
     stylist.password = hash;
 
     Stylists.addStylist(stylist)
       .then(saved => {
-        res.status(201).json({message:'New stylist created.', saved, stylist});
+        res.status(201).json({message:'Stylist profile created.', saved, stylist});
       })
       .catch(err => {
         res.status(500).json({message:'Request failed to add new stylist.', err});
     })
-  }
-  
-  catch {
-    res.status(500).json({message:'Request try failed.', err});
+  }  
+  else {
+    res.status(400).json({message:'One or more fields may be incorrect.', err: validateResults.errors})
   }
 });
 
