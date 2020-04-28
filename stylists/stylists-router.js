@@ -133,7 +133,7 @@ router.put('/:id/salon', restricted,  (req, res) => {
 });
 
 
-router.put('/:id/posts/:id', restricted, upload.single(), (req, res) => {
+router.put('/:id/posts/:id', restricted, (req, res) => {
   const editedPost = req.body;
   const id = req.params.id;
 
