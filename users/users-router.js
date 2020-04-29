@@ -79,6 +79,17 @@ router.post('/:id/reviews', restricted, (req, res) => {
   });
 });
 
+router.post('/:id/bookmarks', restricted, (req, res) => {
+  const newBookmark = req.body
+  db('bookmarks').insert(newBookmark)
+  .then(ids => {
+    res.status(201).json({ message: 'Bookmark successfully added.' });
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to add new bookmark.' });
+  });
+});
+
 
 //PUT
 router.put('/:id', restricted, (req, res) => {
