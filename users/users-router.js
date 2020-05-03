@@ -62,7 +62,7 @@ router.get('/:id/bookmarks', restricted, (req, res) => {
     .then(bookmarks => { res.status(200).json(bookmarks) })
     .catch(err=> {
       console.log(err);
-      res.status(500).json({error: 'Error retrieving bookmarks.'})
+      res.status(500).json({error: 'Error retrieving bookmarks.', error})
     });
 });
 
@@ -86,7 +86,7 @@ router.post('/:id/bookmarks', restricted, (req, res) => {
     res.status(201).json({ message: 'Bookmark successfully added.' });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to add new bookmark.' });
+    res.status(500).json({ message: 'Failed to add new bookmark.', err });
   });
 });
 
@@ -133,34 +133,29 @@ router.delete('/:id/reviews/:id', restricted, (req, res) => {
 
 module.exports = router;
 
-// this is a test api for images
-// const multer = require('multer')
-// const storage = multer.diskStorage({
-//   destination: './public/uploads/',
-//   filename: function(req, file, cb){
-//     cb(null, file.filename + '-' + Date.now().toISOString())
-//   }
-// })
-// const upload = multer({storage: storage})
+// this is a test
+// api for posting images
+const multer = require('multer')
+const storage = multer.diskStorage({
+  destination: './public/uploads/',
+  filename: function(req, file, cb){
+    cb(null, file.filename + '-' + Date.now().toISOString())
+  }
+})
+const upload = multer({storage: storage})
 
-// router.put('/:id/upload', (req, res) => {
-//   const id = req.params.id;
-//   upload(req, res, (err) => {
-//     if (err){
-//       res.render('err', {msg: err})
-//     } 
-//     else {
-//       if (req.file == undefined){
-//         res.status(500).json({message: 'No file selected'})
-//       } else {
-//         db('users').where({id}).update(req.file)
-//         .then(ids => {
-//           res.status(200).json({
-//             msg: 'File uploaded',
-//             file: `uploads/${req.file.filename}`
-//           })
-//         })
-//       }
-//     }
-//   })
-// })
+router.put('/:id/upload', (req, res) => {
+  const id = req.params.id;
+  upload(req, res, (err) => {
+    db('users').where({id}).update(req.file)
+    .then(() => {
+      res.status(200).json({
+        msg: 'File uploaded',
+        file: `uploads/${req.file.filename}`
+      })
+    })
+    .catch(err => {
+      res.status(500).json({ message: 'Failed to upload image.', err });
+    });
+  })
+})
