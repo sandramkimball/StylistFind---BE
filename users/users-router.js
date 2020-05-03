@@ -141,7 +141,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage}).single('userImg')
 
-router.put('/:id/upload', (req, res) => {
+router.put('/:id/upload', restricted, (req, res) => {
   const id = req.params.id;
   upload(req, res, (err) => {
     db('users').where({id}).update(req.file)
