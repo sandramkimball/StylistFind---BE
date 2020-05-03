@@ -91,21 +91,6 @@ router.post('/:id/bookmarks', restricted, (req, res) => {
 });
 
 
-//PUT
-router.put('/:id', restricted, (req, res) => {
-  const userData = req.body;
-  const id = req.params.id;
-
-  db('users').where({id}).update(userData)
-  .then(ids => {
-    res.status(201).json({ created: ids[0] });
-  })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to edit user information.', err });
-  });
-});
-
-
 //DELETE
 router.delete('/:id', restricted, (req, res) => {
   const id = req.params.id;
@@ -131,10 +116,22 @@ router.delete('/:id/reviews/:id', restricted, (req, res) => {
   });
 });
 
-module.exports = router;
 
-// this is a test
-// api for posting images
+//PUT
+router.put('/:id', restricted, (req, res) => {
+  const userData = req.body;
+  const id = req.params.id;
+
+  db('users').where({id}).update(userData)
+  .then(ids => {
+    res.status(201).json({ created: ids[0] });
+  })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to edit user information.', err });
+  });
+});
+
+// api for posting images - under experimentation
 const multer = require('multer')
 const storage = multer.diskStorage({
   destination: '../public/uploads',
@@ -159,3 +156,7 @@ router.put('/:id/upload', (req, res) => {
     });
   })
 })
+
+
+// EXPORT
+module.exports = router;
