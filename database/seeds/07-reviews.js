@@ -5,7 +5,7 @@ exports.seed = function(knex) {
           user_id: 1,
           stylist_id: 1,
           date: '2018-04-06',
-          review: 'Sandy was soooo nice! She did great with my hair.',
+          review: 'The shop is so cool. Local art and funky music to vibe to.',
           image: 'https://images.unsplash.com/photo-1502823403499-6ccfcf4fb453?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=400&q=60'
         },
         {

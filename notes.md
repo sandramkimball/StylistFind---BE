@@ -1,5 +1,6 @@
 
 npx heroku run knex migrate:rollback -a stylistfind-db
+npx heroku run knex migrate:down -a stylistfind-db
 npx heroku run knex migrate:up -a stylistfind-db
 npx heroku run knex seed:run -a stylistfind-db
 

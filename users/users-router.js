@@ -1,4 +1,5 @@
 const router = require('express').Router();
+const multer = require('multer')
 const Users = require('./users-model.js');
 const db = require('../database/dbConfig.js');
 const restricted = require('../auth/restricted-middleware.js');
@@ -132,7 +133,6 @@ router.put('/:id', restricted, (req, res) => {
 });
 
 // api for posting images - under experimentation
-const multer = require('multer')
 const storage = multer.diskStorage({
   destination: '../public/uploads',
   filename: function(req, file, cb){
