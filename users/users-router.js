@@ -137,12 +137,12 @@ module.exports = router;
 // api for posting images
 const multer = require('multer')
 const storage = multer.diskStorage({
-  destination: './public/uploads/',
+  destination: '../public/uploads',
   filename: function(req, file, cb){
     cb(null, file.filename + '-' + Date.now().toISOString())
   }
 })
-const upload = multer({storage: storage})
+const upload = multer({storage: storage}).single('userImg')
 
 router.put('/:id/upload', (req, res) => {
   const id = req.params.id;
