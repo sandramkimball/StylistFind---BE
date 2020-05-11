@@ -147,7 +147,7 @@ router.put('/:id/upload', restricted, (req, res) => {
     db('users').where({id}).update(req.file)
     .then(() => {
       res.status(200).json({
-        msg: 'File uploaded',
+        msg: 'File recieved and uploaded',
         file: `uploads/${req.file.filename}`
       })
     })

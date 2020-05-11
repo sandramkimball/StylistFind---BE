@@ -11,7 +11,11 @@ const server = express();
 
 server.use(helmet());
 server.use(express.json());
-server.use(cors());
+var whitelist = ['http://localhost:3000/', 'https://stylistfind.now.sh/']
+var corsOptions = {
+  origin: whitelist
+}
+server.use(cors(corsOptions));
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
