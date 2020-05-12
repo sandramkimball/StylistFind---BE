@@ -139,22 +139,20 @@ const storage = multer.diskStorage({
     cb(null, file.filename + '-' + Date.now().toISOString())
   }
 })
-const upload = multer({storage: storage}).single('userImg')
+const upload = multer({storage: storage})
 
-router.put('/:id/upload', restricted, (req, res) => {
+router.put('/:id/upload', restricted, upload.single('userImg'), (req, res) => {
   const id = req.params.id;
-  upload(req, res, (err) => {
-    db('users').where({id}).update(req.file)
-    .then(() => {
-      res.status(200).json({
-        msg: 'File recieved and uploaded',
-        file: `uploads/${req.file.filename}`
-      })
+  db('users').where({id}).update(req.file)
+  .then(() => {
+    res.status(200).json({
+      msg: 'File recieved and inserted.',
+      file: `uploads/${req.file.filename}`
     })
-    .catch(err => {
-      res.status(500).json({ message: 'Failed to upload image.', err });
-    });
   })
+  .catch(err => {
+    res.status(500).json({ message: 'Failed to upload image.', err });
+  });
 })
 
 
