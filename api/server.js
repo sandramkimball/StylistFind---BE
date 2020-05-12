@@ -9,20 +9,20 @@ const searchRouter = require('../search/search-router.js');
 
 const server = express();
 
+server.use(cors());
 server.use(helmet());
 server.use(express.json());
 var whitelist = ['http://localhost:3000/', 'https://stylistfind.now.sh/']
 var corsOptions = {
   origin: whitelist
 }
-server.use(cors(corsOptions));
 
 server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/stylists', stylistsRouter);
 server.use('/api/search', searchRouter);
 
-server.get('/', cors(), (req, res) => {
+server.get('/', cors(corsOptions), (req, res) => {
   res.send("Let\'s find you a stylist.");
 });
 
