@@ -1,5 +1,6 @@
 const router = require('express').Router();
 const bcrypt = require('bcryptjs');
+const multer = require('multer');
 const jwt = require('jsonwebtoken');
 const Users = require('../users/users-model.js');
 const Stylists = require('../stylists/stylists-model.js');
@@ -21,6 +22,15 @@ function getJwtToken(user){
 
   return jwt.sign(payload, secret, options);
 }
+
+//setup multer to take in image files
+const storage = multer.diskStorage({
+  destination: '../public/uploads',
+  filename: function(req, file, cb){
+    cb(null, file.filename + '-' + Date.now().toISOString())
+  }
+})
+const upload = multer({storage: storage})
 
 // LOGIN
 router.post('/login/user', (req, res) => {
@@ -108,7 +118,7 @@ router.post('/register/stylist', (req, res) => {
   }
 });
 
-router.post('/register/salon', (req, res) => {
+router.post('/register/salon', upload.single('userImg'), (req, res) => {
   let salon = req.body;
   Salons.addSalon(salon)
   .then(saved => {
