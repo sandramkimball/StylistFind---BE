@@ -76,7 +76,7 @@ router.post('/login/stylist', (req, res) => {
 
 
 // REGISTER
-router.post('/register/user', (req, res) => {
+router.post('/register/user', upload.single('userImg'), (req, res) => {
   let user = req.body;
   const validateResults = validateUser(user);
 
@@ -118,7 +118,7 @@ router.post('/register/stylist', (req, res) => {
   }
 });
 
-router.post('/register/salon', upload.single('userImg'), (req, res) => {
+router.post('/register/salon', (req, res) => {
   let salon = req.body;
   Salons.addSalon(salon)
   .then(saved => {
