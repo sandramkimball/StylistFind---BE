@@ -157,7 +157,9 @@ router.put('/:id/upload', restricted,  (req, res) => {
         .then(res=> 
           res.status(200).json({
             msg: 'File recieved and inserted.',
-            file: `public/uploads/${req.file.filename}`
+            filename: req.file.name,
+            file: `public/uploads/${req.file.file.name}`,
+            filePath: `public/uploads/${req.file.file.name}`
         }))
       }
     }
