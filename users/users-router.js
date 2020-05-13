@@ -149,16 +149,14 @@ router.post('/upload', restricted,  (req, res) => {
       res.render(err)
     } else {
       if(req.file == undefined){
-        res.status(500).json({ message: 'File undefined. Be sure you selected a file.', err });
+        res.render('index', { message: 'File undefined. Be sure you selected a file.', err });
       } else {
-        db('users').where({id}).update({profile_img: req.file.path})
-        .then(res=> 
-          res.render('index',{
+        res.render('index',{
             msg: 'File recieved and inserted.',
-            filename: req.file.name,
+            filename: req.file.filename,
             file: `public/uploads/${req.file.filename}`,
             filePath: `public/uploads/${req.file.filename}`
-        }))
+        })
       }
     }
   })
