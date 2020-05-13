@@ -144,13 +144,11 @@ const upload = multer({storage: storage}).single('userImg');
 router.post('/:id/upload', restricted,  (req, res) => {
   upload(req, res, (err)=> {
     if(err){ 
-      res.status(500).json('index', {msg: err}) 
+      res.status(500).json({ message: 'Unexpected Upload Error', err }) 
     } else {
       if(req.file == undefined){
-        res.status(500).json({ 
-          message: 'File undefined. Be sure you selected a file.', err 
-        });
-      } else{
+        res.status(500).json({ message: 'File undefined. Be sure you selected a file.', err });
+      } else {
         db('users').where({id}).update({profile_img: req.file.path})
         .then(res=> 
           res.status(200).json({
