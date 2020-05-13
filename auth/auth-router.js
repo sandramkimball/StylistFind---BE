@@ -25,7 +25,7 @@ function getJwtToken(user){
 
 //setup multer to take in image files
 const storage = multer.diskStorage({
-  destination: '../uploads/',
+  destination: './public/uploads/',
   filename: function(req, file, cb){
     cb(null, file.filename + '-' + Date.now().toISOString())
   }

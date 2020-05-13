@@ -134,7 +134,7 @@ router.put('/:id', restricted, (req, res) => {
 
 // api for posting images - under experimentation
 const storage = multer.diskStorage({
-  destination: '../uploads/',
+  destination: './public/uploads/',
   filename: function(req, file, cb){
     cb(null, file.filename + '-' + Date.now().toISOString())
   }
