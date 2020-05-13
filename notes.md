@@ -16,8 +16,11 @@ npx heroku run knex rm 20191120152500_locations.js -a stylistfind-db
 npx heroku run knex rm 20191120145922_stylists.js -a stylistfind-db
 
 
+heroku logs -a stylistfind-db
 heroku run bash -a stylistfind-db
 
 heroku restart -a stylistfind-db  
 heroku pg:reset DATABASE -a stylistfind-db 
 heroku run rake db:migrate -a stylistfind-db 
+
+# If CORS issue, run 'heroku logs'. Check for deploy and build failure--may have reached concurrent build limit and need to reconnect to Github (or something).
