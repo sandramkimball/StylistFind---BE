@@ -136,12 +136,12 @@ router.put('/:id', restricted, (req, res) => {
 const storage = multer.diskStorage({
   destination: './public/uploads/',
   filename: function(req, file, cb){
-    cb(null, file.filename + '-' + Date.now().toISOString())
+    cb(null, file.name + '-' + Date.now().toISOString())
   }
 })
 const upload = multer({storage: storage}).single('userImg');
 
-router.post('/:id/upload', restricted,  (req, res) => {
+router.post('/upload', restricted,  (req, res) => {
   upload(req, res, (err)=> {
     if(err){ 
       res.status(500).json({ message: 'Unexpected Upload Error', err }) 
