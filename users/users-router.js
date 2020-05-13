@@ -139,7 +139,7 @@ const storage = multer.diskStorage({
     cb(null, file.filename + '-' + Date.now().toISOString())
   }
 })
-const upload = multer({storage: storage}).upload.single('userImg');
+const upload = multer({storage: storage}).single('userImg');
 
 router.put('/:id/upload', restricted,  (req, res) => {
   //const id = req.params.id;
