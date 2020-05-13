@@ -139,20 +139,29 @@ const storage = multer.diskStorage({
     cb(null, file.filename + '-' + Date.now().toISOString())
   }
 })
-const upload = multer({storage: storage})
+const upload = multer({storage: storage}).upload.single('userImg');
 
-router.put('/:id/upload', restricted, upload.single('userImg'), (req, res) => {
-  const id = req.params.id;
-  db('users').where({id}).update({profile_img: req.file})
-  .then(() => {
-    res.status(200).json({
-      msg: 'File recieved and inserted.',
-      file: `uploads/${req.file.filename}`
-    })
+router.put('/:id/upload', restricted,  (req, res) => {
+  //const id = req.params.id;
+  // db('users').where({id}).update({profile_img: req.file})
+  upload(req, res, (err)=> {
+    if(err){ 
+      res.status(500).json('index', {msg: err}) 
+    } else {
+      if(req.file == undefined){
+        res.status(500).json({ 
+          message: 'File undefined. Be sure you selected a file.', err 
+        });
+      } else{
+        db('users').where({id}).update({profile_img: req.file.path})
+        .then(res=> 
+          res.status(200).json({
+            msg: 'File recieved and inserted.',
+            file: `public/uploads/${req.file.filename}`
+        }))
+      }
+    }
   })
-  .catch(err => {
-    res.status(500).json({ message: 'Failed to upload image.', err });
-  });
 })
 
 
