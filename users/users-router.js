@@ -143,7 +143,7 @@ const upload = multer({storage: storage})
 
 router.put('/:id/upload', restricted, upload.single('userImg'), (req, res) => {
   const id = req.params.id;
-  db('users').where({id}).update(req.file)
+  db('users').where({id}).update({profile_img: req.file})
   .then(() => {
     res.status(200).json({
       msg: 'File recieved and inserted.',
