@@ -152,7 +152,7 @@ router.post('/:id/upload', restricted,  (req, res) => {
       } else {
         res.json({
             message: 'File recieved and inserted.',
-            file: `uploads/${req.file.name}`,
+            file: `public/uploads/${req.file.name}`,
             // filename: req.file.filename,
             // filePath: `uploads/${req.file.filename}`
         })
