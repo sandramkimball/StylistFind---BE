@@ -132,11 +132,11 @@ router.put('/:id', restricted, (req, res) => {
   });
 });
 
-// api for posting images - under experimentation
+//API for posting images - under experimentation
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req, file, cb){
-    cb( null, file.fieldname + '-' + Date.now() ) 
+    cb( null, file.fieldname + '-' + Date.now() + file.name) 
   }
 })
 const upload = multer({storage: storage}).single('userImg');
@@ -147,7 +147,7 @@ router.post('/uploads', restricted, (req, res) => {
       res.json({ message: 'Unexpected Upload Error', err}) 
     } else {
       if(req.file === undefined){
-        res.json({ message: 'File undefined. Be sure you selected a file.', err });
+        res.json({ message: 'File is undefined or empty.', err });
       } else {
         res.json({
             message: 'File recieved.',
