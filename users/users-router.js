@@ -136,7 +136,7 @@ router.put('/:id', restricted, (req, res) => {
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req, file, cb){
-    cb( null, file.fieldname + '-' + Date.now() + path.extname(file.originalname)) 
+    cb( null, file.fieldname + '-' + Date.now() ) 
   }
 })
 const upload = multer({storage: storage}).single('userImg');
@@ -145,6 +145,9 @@ router.post('/:id/upload', restricted,  (req, res) => {
   upload(req, res, (err)=> {
     if(err){ 
       res.json({ message: 'Unexpected Upload Error', err}) 
+    } 
+    if(!token){
+      res.json({message: 'No token.'})
     } else {
       if(req.file === undefined){
         res.json({ message: 'File undefined. Be sure you selected a file.', err });
