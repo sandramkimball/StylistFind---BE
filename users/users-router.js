@@ -142,19 +142,18 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage}).single('userImg');
 
-router.post('/upload', restricted,  (req, res) => {
+router.post('/:id/upload', restricted,  (req, res) => {
   upload(req, res, (err)=> {
     if(err){ 
-      res.status(500).json({ message: 'Unexpected Upload Error' }) 
-      res.render(err)
+      res.json({ message: 'Unexpected Upload Error', err}) 
     } else {
       if(req.file == undefined){
-        res.render('index', { message: 'File undefined. Be sure you selected a file.', err });
+        res.json({ message: 'File undefined. Be sure you selected a file.', err });
       } else {
-        res.render('index',{
-            msg: 'File recieved and inserted.',
-            // filename: req.file.filename,
+        res.json({
+            message: 'File recieved and inserted.',
             file: `uploads/${req.file.name}`,
+            // filename: req.file.filename,
             // filePath: `uploads/${req.file.filename}`
         })
       }
