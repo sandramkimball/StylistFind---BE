@@ -141,7 +141,7 @@ const storage = multer.diskStorage({
 })
 const upload = multer({storage: storage});
 
-router.post('/uploads', restricted, upload.single('userImg'), (req, res) => {
+router.post('/uploads', upload.single('userImg'), (req, res) => {
   if(req.file === undefined){
     res.json({ message: 'File is undefined or empty.', err });
   } else {
