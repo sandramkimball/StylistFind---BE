@@ -1,9 +1,15 @@
+const Users = require('../users/users-model.js');
+
 module.exports={
     validateUser
 }
 
 function validateUser(user){
     let errors = [];
+
+    if(Users.findBy(user.email) === true){
+        errors.push('A user with that email already exists.')
+    }
 
     if (user.first_name === null){
         errors.push('Please add full name.')

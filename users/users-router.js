@@ -110,10 +110,10 @@ router.delete('/:id/reviews/:id', restricted, (req, res) => {
 
   db('reviews').where({id}).delete()
   .then(ids => {
-    res.status(201).json({ message: 'This review has been deleted.' });
+    res.status(204).json({ message: 'This review has been deleted.', res });
   })
   .catch(err => {
-    res.status(500).json({ message: 'Failed to delete review.' });
+    res.status(500).json({ message: 'Failed to delete review.', err });
   });
 });
 
