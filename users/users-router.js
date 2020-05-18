@@ -136,7 +136,7 @@ router.put('/:id', restricted, (req, res) => {
 const storage = multer.diskStorage({
   destination: './uploads/',
   filename: function(req, file, cb){
-    cb( null, file.fieldname + '-' + Date.now() + file.name) 
+    cb( null, file.fieldname + '-' + Date.now() + file.originalname) 
   }
 })
 const upload = multer({storage: storage});
