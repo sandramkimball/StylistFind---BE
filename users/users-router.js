@@ -139,26 +139,39 @@ const storage = multer.diskStorage({
     cb( null, file.fieldname + '-' + Date.now() + file.name) 
   }
 })
-const upload = multer({storage: storage}).single('userImg');
+const upload = multer({storage: storage});
 
-router.post('/uploads', restricted, (req, res) => {
-  upload(req, res, (err)=> {
-    if(err){ 
-      res.json({ message: 'Unexpected Upload Error', err}) 
-    } else {
-      if(req.file === undefined){
-        res.json({ message: 'File is undefined or empty.', err });
-      } else {
-        res.json({
-            message: 'File recieved.',
-            file: `uploads/${req.file.filename}`,
-            filePath: `uploads/${req.file.filename}`,
-            fileName: `${req.file.filename}`
-        })
-      }
-    }
-  })
+router.post('/uploads', restricted, upload.single('userImg'), (req, res) => {
+  if(req.file === undefined){
+    res.json({ message: 'File is undefined or empty.', err });
+  } else {
+    res.json({
+        message: 'File recieved.',
+        file: `uploads/${req.file.filename}`,
+        filePath: `uploads/${req.file.filename}`,
+        fileName: `${req.file.filename}`
+    })
+  }
 })
+
+// router.post('/uploads', restricted, (req, res) => {
+//   upload(req, res, (err)=> {
+//     if(err){ 
+//       res.json({ message: 'Unexpected Upload Error', err}) 
+//     } else {
+//       if(req.file === undefined){
+//         res.json({ message: 'File is undefined or empty.', err });
+//       } else {
+//         res.json({
+//             message: 'File recieved.',
+//             file: `uploads/${req.file.filename}`,
+//             filePath: `uploads/${req.file.filename}`,
+//             fileName: `${req.file.filename}`
+//         })
+//       }
+//     }
+//   })
+// })
 
 
 // EXPORT
