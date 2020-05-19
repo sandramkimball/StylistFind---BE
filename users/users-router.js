@@ -141,9 +141,9 @@ const storage = multer.diskStorage({
 })
 function checkFile(file, cb){
   //Allowed ext
-  const filetypes = /jpeg|jpg|png/
+  const filetypes = /jpeg|jpg|png/;
   //Check ext
-  const extname = filetypes.test(file.path.extname(file.originalname.toLowerCase()));
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   //Check mime(application/json or img/jpeg?)
   const mimetype = filetypes.test(file.mimetype);
 
