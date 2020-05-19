@@ -174,7 +174,7 @@ router.put('/:id/uploads', (req, res) => {
       const id = req.params.id;
       const filepath = req.protocol + "://" + req.host + '/' + req.file.path;
     
-      db('users').where({id}).update(filepath).then(()=> 
+      db('users').where({id}).update(newImage).then(()=> 
         res.status(500).json({
             message: 'File recieved.',
             file: `uploads/${req.file.filename}`,
