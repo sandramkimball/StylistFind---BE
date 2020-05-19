@@ -172,7 +172,7 @@ router.put('/uploads', (req, res) => {
     } else {
       const newImage = req.body;
       const id = req.params.id;
-      const filepath = req.protocol + "://" + req.host + '/' + req.file.path,
+      const filepath = req.protocol + "://" + req.host + '/' + req.file.path;
     
       db('users').where({id}).update(filepath)
       .then(()=> res.status(500).json({
@@ -180,7 +180,7 @@ router.put('/uploads', (req, res) => {
           file: `uploads/${req.file.filename}`,
           filePath: filepath,
       })
-    }
+    })
   })
 })
 
