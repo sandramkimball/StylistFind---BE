@@ -134,16 +134,17 @@ router.put('/:id', restricted, (req, res) => {
 
 //API for posting images - under experimentation
 const storage = multer.diskStorage({
-  destination: './uploads/',
+  destination: './public/uploads/',
   filename: function(req, file, cb){
-    cb( null, file.fieldname + '-' + Date.now() + file.originalname) 
+    cb( null, file.fieldname + '-' + Date.now() + path.extname(file.originalname));
   }
 })
+
 function checkFile(file, cb){
   //Allowed ext
   const filetypes = /jpeg|jpg|png/;
   //Check ext
-  const extname = filetypes.test(file.path.extname(file.originalname).toLowerCase());
+  const extname = filetypes.test(path.extname(file.originalname).toLowerCase());
   //Check mime(application/json or img/jpeg?)
   const mimetype = filetypes.test(file.mimetype);
 
@@ -153,44 +154,31 @@ function checkFile(file, cb){
     cb('Error: File is not type of jpeg, jpg or png.')
   }
 }
+
 const upload = multer({
   storage: storage,
   fileFilter: function(req, file, cb){
     checkFile(file, cb)
   }
-});
+}).single('userImg');
 
-router.post('/uploads', upload.single('userImg'), (req, res) => {
-  if(req.file === undefined){
-    res.json({ message: 'File is undefined or empty.', err });
-  } else {
-    res.json({
-        message: 'File recieved.',
-        file: `uploads/${req.file.filename}`,
-        filePath: req.protocol + "://" + req.host + '/' + req.file.path,
-        fileName: `${req.file.filename}`
-    })
-  }
-})
-
-router.post('/upload', (req, res) => {
-  upload(req, res, (err)=> {
-    if(err){ 
-      res.json({ message: 'Unexpected Upload Error', err}) 
+router.post('/uploads', (req, res) => {
+  upload(req, res, (err) => {
+    if(err){
+      res.json({message: err})
+    } else if(req.file === undefined){
+      res.json({ message: 'File is undefined or empty.', err });
     } else {
-      if(req.file === undefined){
-        res.json({ message: 'File is undefined or empty.', err });
-      } else {
-        res.json({
-            message: 'File recieved.',
-            file: `uploads/${req.file.filename}`,
-            filePath: req.protocol + "://" + req.host + '/' + req.file.path,
-            fileName: `${req.file.filename}`
-        })
-      }
+      res.json({
+          message: 'File recieved.',
+          file: `uploads/${req.file.filename}`,
+          filePath: req.protocol + "://" + req.host + '/' + req.file.path,
+          fileName: `${req.file.filename}`
+      })
     }
-  }).single('userImg')
+  })
 })
+
 
 
 // EXPORT
