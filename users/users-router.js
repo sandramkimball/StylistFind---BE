@@ -163,11 +163,11 @@ const upload = multer({
   }
 }).single('userImg');
 
-router.put('/uploads', (req, res) => {
+router.put('/:id/uploads', (req, res) => {
   upload(req, res, (err) => {
     if(err){
       res.json({message: err})
-    } else if(req.file === undefined){
+    } else if (req.file === undefined) {
       res.json({ message: 'File is undefined or empty.', err });
     } else {
       const newImage = req.body;
