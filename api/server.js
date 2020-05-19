@@ -15,6 +15,12 @@ server.use(cors());
 server.use(helmet());
 server.use(express.json());
 
+//Cors Options
+var whitelist = ['http://localhost:3000/', 'https://stylistfind.now.sh/']
+var corsOptions = {
+  origin: whitelist
+}
+
 //Public Folder
 server.use(express.static('./public'));
 
@@ -23,8 +29,9 @@ server.use('/api/auth', authRouter);
 server.use('/api/users', usersRouter);
 server.use('/api/stylists', stylistsRouter);
 server.use('/api/search', searchRouter);
-server.get('/', cors(), (req, res) => {
+server.get('/', cors(corsOptions), (req, res) => {
   res.send("Let\'s find you a stylist.");
 });
+
 
 module.exports = server;
