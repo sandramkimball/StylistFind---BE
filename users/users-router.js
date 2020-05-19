@@ -139,7 +139,26 @@ const storage = multer.diskStorage({
     cb( null, file.fieldname + '-' + Date.now() + file.originalname) 
   }
 })
-const upload = multer({storage: storage});
+function checkFile(file, cb){
+  //Allowed ext
+  const filetypes = /jpeg|jpg|png/
+  //Check ext
+  const extname = filetypes.test(path.extname(file(originalname).toLowerCase()));
+  //Check mime(application/json or img/jpeg?)
+  const mimetype = filetypes.test(file.mimetype);
+
+  if(mimetype && extname){
+    return cb(null, true)
+  } else {
+    cb('Error: File is not type of jpeg, jpg or png.')
+  }
+}
+const upload = multer({
+  storage: storage,
+  fileFilter: function(req, file, cb){
+    checkFile(file, cb)
+  }
+});
 
 router.post('/uploads', upload.single('userImg'), (req, res) => {
   if(req.file === undefined){
@@ -154,7 +173,7 @@ router.post('/uploads', upload.single('userImg'), (req, res) => {
   }
 })
 
-router.post('/upload', restricted, (req, res) => {
+router.post('/upload', (req, res) => {
   upload(req, res, (err)=> {
     if(err){ 
       res.json({ message: 'Unexpected Upload Error', err}) 
