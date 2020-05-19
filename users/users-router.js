@@ -163,18 +163,21 @@ const upload = multer({
   }
 }).single('userImg');
 
-router.post('/uploads', (req, res) => {
+router.put('/uploads', (req, res) => {
   upload(req, res, (err) => {
     if(err){
       res.json({message: err})
     } else if(req.file === undefined){
       res.json({ message: 'File is undefined or empty.', err });
     } else {
-      res.json({
+      const newImage = req.body;
+      const id = req.params.id;
+    
+      db('users').where({id}).update(newImage)
+      .then(()=> res.status(500).json({
           message: 'File recieved.',
           file: `uploads/${req.file.filename}`,
           filePath: req.protocol + "://" + req.host + '/' + req.file.path,
-          fileName: `${req.file.filename}`
       })
     }
   })
