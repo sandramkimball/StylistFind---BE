@@ -156,7 +156,7 @@ function checkFile(file, cb){
 const upload = multer({
   storage: storage,
   fileFilter: function(req, file, cb){
-    checkFile(file, cb)
+    checkFile(req.file, cb)
   }
 });
 
