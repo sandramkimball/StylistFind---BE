@@ -2,6 +2,7 @@ const router = require('express').Router();
 const multer = require('multer')
 const Users = require('./users-model.js');
 const db = require('../database/dbConfig.js');
+const path = require('path');
 const restricted = require('../auth/restricted-middleware.js');
 
 
