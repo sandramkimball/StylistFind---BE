@@ -167,21 +167,24 @@ router.put('/:id/uploads', (req, res) => {
   upload(req, res, (err) => {
     if(err){
       res.json({message: err})
-    } else if (req.file === undefined) {
-      res.json({ message: 'File is undefined or empty.', err });
-    } else {
+    } 
+    else if (req.file === undefined) {
+      res.status(500).json({ message: 'File is undefined or empty.', err });
+    } 
+    else {
       const newImage = req.body;
       const id = req.params.id;
       const filepath = req.protocol + "://" + req.host + '/' + req.file.path;
-    
-      db('users').where({id}).update({profile_img: newImage}).then(()=> 
-        res.status(500).json({
+      db('users')
+      .where({id})
+      .update({profile_img: filepath})
+      .then(()=> 
+        res.status(200).json({
             message: 'File recieved.',
             file: `uploads/${req.file.filename}`,
             filePath: filepath,
         })
       )
-
     }
     
   })
